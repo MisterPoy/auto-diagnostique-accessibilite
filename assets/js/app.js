@@ -206,7 +206,7 @@
       el.textContent = `${checked}/${total}`;
     });
     if (scoreMeta)
-      scoreMeta.textContent = `${checked}/${total} cases cochées — ${pct}%`;
+      scoreMeta.textContent = `${checked}/${total} reponses oui — ${pct}%`;
     const lvl = scoreLevel(pct);
     if (scoreLabel) {
       scoreLabel.textContent = lvl.label;
@@ -269,7 +269,7 @@
       const label =
         cb
           .closest(".question-item")
-          ?.querySelector(".question-text")
+          ?.querySelector(".question-legend")
           ?.textContent?.replace(/\s+/g, " ")
           ?.trim() || cb.id;
       map.get(sec).push({ id: cb.id, label, checked: cb.checked });
@@ -348,12 +348,24 @@
         updateScore();
       });
     });
+    function setMarkdownState(isOpen) {
+      if (exportBtn)
+        exportBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      if (mdCloseBtn)
+        mdCloseBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
     function showMarkdown(md) {
       if (!mdOut) return;
+      mdOut.hidden = false;
+      mdOut.setAttribute("aria-hidden", "false");
       mdOut.value = md;
       mdOut.classList.remove("sr-only");
       mdOut.classList.add("md-output");
-      if (mdCloseBtn) mdCloseBtn.classList.add("is-visible");
+      if (mdCloseBtn) {
+        mdCloseBtn.hidden = false;
+        mdCloseBtn.classList.add("is-visible");
+      }
+      setMarkdownState(true);
       mdOut.focus();
       mdOut.select();
     }
@@ -361,8 +373,16 @@
       if (!mdOut) return;
       mdOut.classList.remove("md-output");
       mdOut.classList.add("sr-only");
-      if (mdCloseBtn) mdCloseBtn.classList.remove("is-visible");
+      mdOut.hidden = true;
+      mdOut.setAttribute("aria-hidden", "true");
+      if (mdCloseBtn) {
+        mdCloseBtn.classList.remove("is-visible");
+        mdCloseBtn.hidden = true;
+      }
+      setMarkdownState(false);
+      if (exportBtn) exportBtn.focus();
     }
+    hideMarkdown();
     if (mdCloseBtn) {
       mdCloseBtn.addEventListener("click", hideMarkdown);
     }

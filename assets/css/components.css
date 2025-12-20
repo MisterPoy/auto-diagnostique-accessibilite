@@ -181,10 +181,17 @@
 .checklist-item.question-item {
   align-items: flex-start;
   gap: 12px;
+  border: 0;
+  margin: 8px 0;
+  padding: 0;
+  min-width: 0;
 }
-.question-text {
+.question-legend {
   flex: 1;
   font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
 }
 .answer-group {
   display: inline-flex;
@@ -414,7 +421,7 @@
         font-size: 13px; /* ↓ un poil */
       }
 .cover-top-badge {
-  font-size: clamp(1.4rem, 1.2vw + 1.2rem, 2rem);
+  font-size: clamp(2rem, 2.2vw + 1.4rem, 3.2rem);
   font-weight: 900;
   letter-spacing: 0.16em;
   text-transform: uppercase;

@@ -73,7 +73,7 @@
             >
           </div>
           <p aria-live="polite" class="score-meta" id="scoreMeta">
-            0/20 cases cochées — 0%
+            0/20 reponses oui — 0%
           </p>
           <div
             aria-label="Progression du score"
@@ -109,7 +109,7 @@
             </summary>
 
             <div class="panel-menu" aria-label="Options d’export">
-              <button id="exportBtn" type="button">Exporter (Markdown)</button>
+              <button id="exportBtn" type="button" aria-controls="mdOut" aria-expanded="false">Exporter (Markdown)</button>
               <button id="copyBtn" type="button">Copier</button>
               <button id="resetBtn" type="button">Réinitialiser</button>
               <button id="printBtn" type="button">Imprimer / PDF</button>
@@ -151,17 +151,18 @@
             aria-label="Export Markdown"
             class="sr-only"
             id="mdOut"
-          ></textarea>
+           hidden aria-hidden="true"></textarea>
 
 
-          <button class="md-close" id="mdCloseBtn" type="button">Masquer le Markdown</button>
+          <button class="md-close" id="mdCloseBtn" type="button" aria-controls="mdOut" aria-expanded="false" hidden>Masquer le Markdown</button>
         </div>
       </div>
     </div>
 
+    <main id="appMain" tabindex="-1">
     <!-- PAGE 1 : COUVERTURE -->
     <div class="page page--cover">
-      <div class="page-inner" id="appMain">
+      <div class="page-inner">
         <div class="cover-top">
           <img alt="Logo GregDev" class="logo-main" src="GregDevLogo.png" />
           <div class="cover-top-badge">Guide pratique</div>
@@ -288,11 +289,11 @@
                   </li>
                   <li>
                     Pour chaque erreur, répondez aux
-                    <strong>2 questions à cocher</strong>.
+                    <strong>2 questions oui/non</strong>.
                   </li>
                   <li>
                     Le <strong>score (<span class="score-inline">0/20</span>)</strong> correspond au nombre de
-                    cases cochées sur l’ensemble des 10 sections.
+                    reponses oui sur l’ensemble des 10 sections.
                   </li>
                   <li>
                     En bas, la <strong>checklist finale</strong> affiche un
@@ -379,16 +380,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Contraste de couleurs insuffisant"
+                aria-label="Questions oui/non - Contraste de couleurs insuffisant"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-1-text">Vos textes restent-ils lisibles sans effort sur un écran
-                    lumineux ou en plein jour&nbsp;?</span>
+                  <legend class="question-legend" id="q-1-legend">Vos textes restent-ils lisibles sans effort sur un écran
+                    lumineux ou en plein jour&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-1-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-1-legend">
 
                     <label class="answer-option">
 
@@ -408,13 +409,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-2-text">Les boutons et liens importants ressortent-ils clairement
-                    par rapport au fond&nbsp;?</span>
+                  <legend class="question-legend" id="q-2-legend">Les boutons et liens importants ressortent-ils clairement
+                    par rapport au fond&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-2-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-2-legend">
 
                     <label class="answer-option">
 
@@ -434,7 +435,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -494,16 +495,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Police trop petite et manque de hiérarchie"
+                aria-label="Questions oui/non - Police trop petite et manque de hiérarchie"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-3-text">Les titres ressortent-ils clairement lorsque l’on parcourt
-                    la page rapidement&nbsp;?</span>
+                  <legend class="question-legend" id="q-3-legend">Les titres ressortent-ils clairement lorsque l’on parcourt
+                    la page rapidement&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-3-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-3-legend">
 
                     <label class="answer-option">
 
@@ -523,13 +524,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-4-text">Les paragraphes sont-ils suffisamment espacés pour éviter
-                    l’effet “bloc indigestible”&nbsp;?</span>
+                  <legend class="question-legend" id="q-4-legend">Les paragraphes sont-ils suffisamment espacés pour éviter
+                    l’effet “bloc indigestible”&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-4-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-4-legend">
 
                     <label class="answer-option">
 
@@ -549,7 +550,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -610,16 +611,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Message principal flou"
+                aria-label="Questions oui/non - Message principal flou"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-5-text">En lisant uniquement le premier écran, comprend-on ce que
-                    vous faites&nbsp;?</span>
+                  <legend class="question-legend" id="q-5-legend">En lisant uniquement le premier écran, comprend-on ce que
+                    vous faites&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-5-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-5-legend">
 
                     <label class="answer-option">
 
@@ -639,13 +640,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-6-text">Votre zone géographique est-elle visible dès l’arrivée sur
-                    la page&nbsp;?</span>
+                  <legend class="question-legend" id="q-6-legend">Votre zone géographique est-elle visible dès l’arrivée sur
+                    la page&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-6-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-6-legend">
 
                     <label class="answer-option">
 
@@ -665,7 +666,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -723,16 +724,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Boutons et liens d’action flous"
+                aria-label="Questions oui/non - Boutons et liens d’action flous"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-7-text">Votre action principale est-elle évidente au premier coup
-                    d’œil&nbsp;?</span>
+                  <legend class="question-legend" id="q-7-legend">Votre action principale est-elle évidente au premier coup
+                    d’œil&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-7-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-7-legend">
 
                     <label class="answer-option">
 
@@ -752,13 +753,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-8-text">Chaque bouton indique-t-il clairement ce qui se passe après
-                    le clic&nbsp;?</span>
+                  <legend class="question-legend" id="q-8-legend">Chaque bouton indique-t-il clairement ce qui se passe après
+                    le clic&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-8-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-8-legend">
 
                     <label class="answer-option">
 
@@ -778,7 +779,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -834,16 +835,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Texte structuré uniquement par la couleur ou le gras"
+                aria-label="Questions oui/non - Texte structuré uniquement par la couleur ou le gras"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-9-text">Peut-on comprendre la structure de la page en lisant
-                    uniquement les titres&nbsp;?</span>
+                  <legend class="question-legend" id="q-9-legend">Peut-on comprendre la structure de la page en lisant
+                    uniquement les titres&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-9-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-9-legend">
 
                     <label class="answer-option">
 
@@ -863,13 +864,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-10-text">Les listes à puces sont-elles utilisées pour clarifier des
-                    ensembles d’informations&nbsp;?</span>
+                  <legend class="question-legend" id="q-10-legend">Les listes à puces sont-elles utilisées pour clarifier des
+                    ensembles d’informations&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-10-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-10-legend">
 
                     <label class="answer-option">
 
@@ -889,7 +890,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -949,16 +950,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Images importantes sans description ni texte alternatif"
+                aria-label="Questions oui/non - Images importantes sans description ni texte alternatif"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-11-text">Les images qui “vendent” votre travail sont-elles décrites
-                    quelque part&nbsp;?</span>
+                  <legend class="question-legend" id="q-11-legend">Les images qui “vendent” votre travail sont-elles décrites
+                    quelque part&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-11-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-11-legend">
 
                     <label class="answer-option">
 
@@ -978,13 +979,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-12-text">Le site reste-t-il compréhensible lorsque les images ne se
-                    chargent pas&nbsp;?</span>
+                  <legend class="question-legend" id="q-12-legend">Le site reste-t-il compréhensible lorsque les images ne se
+                    chargent pas&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-12-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-12-legend">
 
                     <label class="answer-option">
 
@@ -1004,7 +1005,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -1059,16 +1060,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Formulaires confus ou trop lourds"
+                aria-label="Questions oui/non - Formulaires confus ou trop lourds"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-13-text">Peut-on remplir le formulaire en une à deux
-                    minutes&nbsp;?</span>
+                  <legend class="question-legend" id="q-13-legend">Peut-on remplir le formulaire en une à deux
+                    minutes&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-13-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-13-legend">
 
                     <label class="answer-option">
 
@@ -1088,13 +1089,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-14-text">Comprend-on facilement ce qui est attendu dans chaque
-                    champ&nbsp;?</span>
+                  <legend class="question-legend" id="q-14-legend">Comprend-on facilement ce qui est attendu dans chaque
+                    champ&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-14-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-14-legend">
 
                     <label class="answer-option">
 
@@ -1114,7 +1115,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -1172,16 +1173,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Navigation lourde ou incohérente"
+                aria-label="Questions oui/non - Navigation lourde ou incohérente"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-15-text">En un ou deux clics, peut-on atteindre vos services, votre
-                    portfolio et votre page de contact&nbsp;?</span>
+                  <legend class="question-legend" id="q-15-legend">En un ou deux clics, peut-on atteindre vos services, votre
+                    portfolio et votre page de contact&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-15-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-15-legend">
 
                     <label class="answer-option">
 
@@ -1201,13 +1202,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-16-text">Le menu sur mobile est-il clairement repérable et facile à
-                    utiliser&nbsp;?</span>
+                  <legend class="question-legend" id="q-16-legend">Le menu sur mobile est-il clairement repérable et facile à
+                    utiliser&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-16-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-16-legend">
 
                     <label class="answer-option">
 
@@ -1227,7 +1228,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -1286,16 +1287,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Zones cliquables trop petites / peu de repères au clavier"
+                aria-label="Questions oui/non - Zones cliquables trop petites / peu de repères au clavier"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-17-text">Avez-vous déjà testé votre site uniquement avec la touche
-                    Tab du clavier&nbsp;?</span>
+                  <legend class="question-legend" id="q-17-legend">Avez-vous déjà testé votre site uniquement avec la touche
+                    Tab du clavier&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-17-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-17-legend">
 
                     <label class="answer-option">
 
@@ -1315,13 +1316,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-18-text">Sur mobile, les boutons sont-ils faciles à actionner sans
-                    viser très précisément&nbsp;?</span>
+                  <legend class="question-legend" id="q-18-legend">Sur mobile, les boutons sont-ils faciles à actionner sans
+                    viser très précisément&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-18-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-18-legend">
 
                     <label class="answer-option">
 
@@ -1341,7 +1342,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -1401,16 +1402,16 @@
             <div class="check-block">
               <p><strong>Questions à vous poser&nbsp;:</strong></p>
               <div
-                aria-label="Questions à cocher — Trop d’effets visuels qui nuisent à la lecture"
+                aria-label="Questions oui/non - Trop d’effets visuels qui nuisent à la lecture"
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item question-item">
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-19-text">Vous sentez-vous à l’aise et calme en parcourant votre
-                    site, ou constamment sollicité&nbsp;?</span>
+                  <legend class="question-legend" id="q-19-legend">Vous sentez-vous à l’aise et calme en parcourant votre
+                    site, ou constamment sollicité&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-19-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-19-legend">
 
                     <label class="answer-option">
 
@@ -1430,13 +1431,13 @@
 
                   </div>
 
-                </div>
-                <div class="checklist-item question-item">
+                </fieldset>
+                <fieldset class="checklist-item question-item">
 
-                  <span class="question-text" id="q-20-text">Les animations apportent-elles une information utile, ou
-                    surtout un effet de style&nbsp;?</span>
+                  <legend class="question-legend" id="q-20-legend">Les animations apportent-elles une information utile, ou
+                    surtout un effet de style&nbsp;?</legend>
 
-                  <div class="answer-group" role="radiogroup" aria-labelledby="q-20-text">
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-20-legend">
 
                     <label class="answer-option">
 
@@ -1456,7 +1457,7 @@
 
                   </div>
 
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -1476,7 +1477,7 @@
           <div class="section-body">
             <p>
               <strong>Le score (<span class="score-inline">0/20</span>)</strong> correspond uniquement aux
-              <strong>20 questions cochées</strong> dans les sections 1 à 10. La
+              <strong>20 reponses oui</strong> dans les sections 1 à 10. La
               grille ci-dessous est un <strong>récap visuel</strong> (non
               cliquable) de ces 20 cases.
             </p>
@@ -1596,16 +1597,16 @@
             <!-- ✅ PATCH : seuils alignés sur 20 -->
             <div class="score-block">
               <p class="score-level">
-                <span class="score-label">16 à 20 cases cochées&nbsp;:</span>
+                <span class="score-label">16 à 20 reponses oui&nbsp;:</span>
                 solide — vous êtes déjà très bien. Visez des optimisations
                 fines.
               </p>
               <p class="score-level">
-                <span class="score-label">10 à 15 cases cochées&nbsp;:</span>
+                <span class="score-label">10 à 15 reponses oui&nbsp;:</span>
                 bon — 2 à 5 quick wins peuvent améliorer nettement l’expérience.
               </p>
               <p class="score-level">
-                <span class="score-label">0 à 9 cases cochées&nbsp;:</span>
+                <span class="score-label">0 à 9 reponses oui&nbsp;:</span>
                 à renforcer — vos visiteurs rencontrent probablement de vraies
                 difficultés. Priorisez les sections les plus faibles.
               </p>
@@ -1677,6 +1678,7 @@
         </footer>
       </div>
     </div>
+    </main>
     <script src="assets/js/app.js" defer></script>
   </body>
 </html>
