@@ -898,6 +898,233 @@
         z-index: 10001;
       }
 
+      /* ===== Export menu (responsive) ===== */
+      .panel-export {
+        justify-self: end;
+      }
+
+      /* Le summary ressemble à un bouton */
+      .panel-export > summary {
+        list-style: none;
+        cursor: pointer;
+        user-select: none;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        padding: 7px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(17, 24, 39, 0.16);
+        background: rgba(17, 24, 39, 0.04);
+        color: #111827;
+        font-weight: 900;
+        font-size: 13px;
+      }
+      .panel-export > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      /* “Plus/Moins” */
+      .sum-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(17, 24, 39, 0.14);
+        background: rgba(79, 70, 229, 0.08);
+        font-weight: 900;
+        font-size: 12px;
+      }
+      .panel-export .when-open {
+        display: none;
+      }
+      .panel-export[open] .when-closed {
+        display: none;
+      }
+      .panel-export[open] .when-open {
+        display: inline;
+      }
+
+      /* Menu (contenu du dropdown) */
+      .panel-menu {
+        margin-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        padding: 10px;
+        border-radius: 14px;
+        border: 1px solid rgba(17, 24, 39, 0.14);
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+      }
+      .panel-menu button {
+        appearance: none;
+        border: 1px solid rgba(17, 24, 39, 0.16);
+        background: rgba(17, 24, 39, 0.04);
+        color: #111827;
+        padding: 7px 10px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 800;
+        font-size: 13px;
+      }
+      .panel-menu button:hover {
+        background: rgba(17, 24, 39, 0.08);
+      }
+
+      /* ===== Bandeau plus fin en mobile ===== */
+      @media (max-width: 860px) {
+        /* on garde : score + barre + bouton Exporter */
+        .sticky-inner {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 8px 12px;
+        }
+
+        /* On évite que le bandeau empile trop */
+        .score-meta {
+          display: none;
+        }
+
+        /* Ces 2 zones ajoutent beaucoup de hauteur → on les cache dans le bandeau mobile */
+        .sections-pop,
+        .panel-context {
+          display: none !important;
+        }
+
+        /* menu en colonne (plus lisible) */
+        .panel-menu {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .panel-menu button {
+          width: 100%;
+        }
+      }
+
+      /* ===== Desktop : on évite un menu inutile → on affiche direct les boutons ===== */
+      @media (min-width: 861px) {
+        /* Sur desktop, on n’affiche pas le “summary Exporter” */
+        .panel-export > summary {
+          display: none;
+        }
+
+        /* Et on force le menu à être “visuellement” toujours visible (inline) */
+        .panel-menu {
+          margin-top: 0;
+          padding: 0;
+          border: 0;
+          box-shadow: none;
+          background: transparent;
+          justify-content: flex-end;
+        }
+      }
+
+      /* === Sticky compact mode (bandeau moins haut) === */
+      .sticky-inner {
+        padding: 8px 12px; /* ↓ avant 10px 16px */
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .score-big {
+        font-size: 22px; /* ↓ avant 26px */
+      }
+
+      .score-meta {
+        margin: 4px 0 0; /* ↓ avant 6px */
+        font-size: 13px; /* ↓ avant 14px */
+      }
+
+      .progress {
+        height: 8px; /* ↓ avant 10px */
+        margin-top: 6px; /* ↓ avant 8px */
+      }
+
+      /* Actions compactes : 2 boutons visibles + "Plus" repliable */
+      .panel-mini-actions {
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .panel-actions button,
+      .panel-mini-actions > button {
+        padding: 7px 10px; /* ↓ avant 9px 10px */
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 13px; /* ↓ un poil */
+      }
+
+      /* "Plus" ressemble à un bouton (summary stylé) */
+      .panel-more {
+        position: relative;
+      }
+
+      .panel-more > summary {
+        list-style: none;
+        cursor: pointer;
+        user-select: none;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 7px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(17, 24, 39, 0.16);
+        background: rgba(17, 24, 39, 0.04);
+        color: #111827;
+        font-weight: 900;
+        font-size: 13px;
+      }
+
+      .panel-more > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .panel-more[open] > summary {
+        background: rgba(17, 24, 39, 0.08);
+      }
+
+      /* Contenu du "Plus" : petit panneau propre */
+      .panel-more .panel-actions {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        padding: 10px;
+        border-radius: 14px;
+        border: 1px solid rgba(17, 24, 39, 0.14);
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+      }
+
+      /* Mobile : le bandeau doit rester “1 ligne-ish” */
+      @media (max-width: 860px) {
+        .sticky-inner {
+          grid-template-columns: 1fr; /* passe en colonne */
+          align-items: start;
+        }
+
+        .panel-mini-actions {
+          justify-content: flex-start;
+        }
+
+        /* Optionnel : on allège encore sur mobile */
+        .score-meta {
+          display: none;
+        }
+      }
+
       /* Scores par section (bandeau) : repliable pour éviter l'effet "ça mange l'écran" */
       .sections-pop {
         margin-top: 10px;
@@ -1004,6 +1231,39 @@
           white-space: pre-wrap;
         }
       }
+
+      /* ✅ PATCH : Checklist finale visuelle = 20 carrés (non interactifs) */
+      .final-visual {
+        margin-top: 12px;
+        padding: 12px 12px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(17, 24, 39, 0.12);
+        background: #ffffff;
+      }
+      .final-grid {
+        display: grid;
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 8px;
+        pointer-events: none; /* non cliquable */
+      }
+      @media (max-width: 640px) {
+        .final-grid {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+      }
+      .final-sq {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 8px;
+        border: 1px solid rgba(17, 24, 39, 0.22);
+        background: rgba(17, 24, 39, 0.04);
+      }
+      .final-sq.is-on {
+        background: rgba(79, 70, 229, 0.18);
+        border-color: rgba(79, 70, 229, 0.55);
+        box-shadow: inset 0 0 0 2px rgba(79, 70, 229, 0.2);
+      }
     </style>
   </head>
   <body>
@@ -1017,14 +1277,15 @@
       <div class="sticky-inner">
         <div>
           <div class="score-row">
-            <p class="score-big" id="scoreText">0%</p>
+            <!-- ✅ PATCH : score affiché en /20 (et le % en meta) -->
+            <p class="score-big" id="scoreText">0/20</p>
             <span class="score-badge"
               ><span class="score-dot" id="scoreDot"></span
               ><span id="scoreLabel">À renforcer</span></span
             >
           </div>
           <p aria-live="polite" class="score-meta" id="scoreMeta">
-            0/0 éléments cochés
+            0/20 cases cochées — 0%
           </p>
           <div
             aria-label="Progression du score"
@@ -1049,13 +1310,25 @@
         </div>
 
         <div>
-          <div aria-label="Actions" class="panel-actions">
-            <button id="exportBtn" type="button">Exporter (Markdown)</button>
-            <button id="copyBtn" type="button">Copier</button>
-            <button id="resetBtn" type="button">Réinitialiser</button>
-            <button id="printBtn" type="button">Imprimer / PDF</button>
-          </div>
+          <!-- ✅ Export : 1 bouton en mobile, boutons inline en desktop via CSS -->
+          <details class="panel-export" id="exportMenu">
+            <summary type="button" aria-label="Exporter et options">
+              <span>Exporter</span>
+              <span class="sum-toggle">
+                <span class="when-closed">Plus</span>
+                <span class="when-open">Moins</span>
+              </span>
+            </summary>
 
+            <div class="panel-menu" aria-label="Options d’export">
+              <button id="exportBtn" type="button">Exporter (Markdown)</button>
+              <button id="copyBtn" type="button">Copier</button>
+              <button id="resetBtn" type="button">Réinitialiser</button>
+              <button id="printBtn" type="button">Imprimer / PDF</button>
+            </div>
+          </details>
+
+          <!-- Contexte -->
           <details class="panel-context">
             <summary>Contexte d’audit (facultatif)</summary>
             <div>
@@ -1226,17 +1499,16 @@
                     mobile.
                   </li>
                   <li>
-                    Pour chaque erreur, regardez si vous vous retrouvez dans la
-                    colonne <strong>Mauvaise pratique</strong>.
+                    Pour chaque erreur, répondez aux
+                    <strong>2 questions à cocher</strong>.
                   </li>
                   <li>
-                    Inspirez-vous de la colonne
-                    <strong>Bonne pratique</strong> pour faire évoluer votre
-                    site.
+                    Le <strong>score (0/20)</strong> correspond au nombre de
+                    cases cochées sur l’ensemble des 10 sections.
                   </li>
                   <li>
-                    Terminez par la checklist finale pour visualiser votre marge
-                    de progression.
+                    En bas, la <strong>checklist finale</strong> affiche un
+                    <strong>miroir visuel</strong> (20 carrés) de ces 20 cases.
                   </li>
                 </ol>
                 <p class="hint">
@@ -1326,6 +1598,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="1"
                     data-section="Contraste de couleurs insuffisant"
                     id="q-1"
                     type="checkbox"
@@ -1338,6 +1611,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="2"
                     data-section="Contraste de couleurs insuffisant"
                     id="q-2"
                     type="checkbox"
@@ -1413,6 +1687,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="3"
                     data-section="Police trop petite et manque de hiérarchie"
                     id="q-3"
                     type="checkbox"
@@ -1425,6 +1700,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="4"
                     data-section="Police trop petite et manque de hiérarchie"
                     id="q-4"
                     type="checkbox"
@@ -1501,6 +1777,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="5"
                     data-section="Message principal flou"
                     id="q-5"
                     type="checkbox"
@@ -1513,6 +1790,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="6"
                     data-section="Message principal flou"
                     id="q-6"
                     type="checkbox"
@@ -1586,6 +1864,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="7"
                     data-section="Boutons et liens d’action flous"
                     id="q-7"
                     type="checkbox"
@@ -1598,6 +1877,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="8"
                     data-section="Boutons et liens d’action flous"
                     id="q-8"
                     type="checkbox"
@@ -1669,6 +1949,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="9"
                     data-section="Texte structuré uniquement par la couleur ou le gras"
                     id="q-9"
                     type="checkbox"
@@ -1681,6 +1962,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="10"
                     data-section="Texte structuré uniquement par la couleur ou le gras"
                     id="q-10"
                     type="checkbox"
@@ -1756,6 +2038,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="11"
                     data-section="Images importantes sans description ni texte alternatif"
                     id="q-11"
                     type="checkbox"
@@ -1768,6 +2051,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="12"
                     data-section="Images importantes sans description ni texte alternatif"
                     id="q-12"
                     type="checkbox"
@@ -1838,6 +2122,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="13"
                     data-section="Formulaires confus ou trop lourds"
                     id="q-13"
                     type="checkbox"
@@ -1850,6 +2135,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="14"
                     data-section="Formulaires confus ou trop lourds"
                     id="q-14"
                     type="checkbox"
@@ -1923,6 +2209,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="15"
                     data-section="Navigation lourde ou incohérente"
                     id="q-15"
                     type="checkbox"
@@ -1935,6 +2222,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="16"
                     data-section="Navigation lourde ou incohérente"
                     id="q-16"
                     type="checkbox"
@@ -2009,6 +2297,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="17"
                     data-section="Zones cliquables trop petites / peu de repères au clavier"
                     id="q-17"
                     type="checkbox"
@@ -2021,6 +2310,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="18"
                     data-section="Zones cliquables trop petites / peu de repères au clavier"
                     id="q-18"
                     type="checkbox"
@@ -2096,6 +2386,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="19"
                     data-section="Trop d’effets visuels qui nuisent à la lecture"
                     id="q-19"
                     type="checkbox"
@@ -2108,6 +2399,7 @@
                 <div class="checklist-item">
                   <input
                     class="check-input"
+                    data-idx="20"
                     data-section="Trop d’effets visuels qui nuisent à la lecture"
                     id="q-20"
                     type="checkbox"
@@ -2129,21 +2421,59 @@
             <div>
               <h2>Checklist finale “Accessibilité &amp; clarté”</h2>
               <div class="section-subtitle">
-                Un état des lieux rapide pour visualiser vos priorités.
+                Miroir visuel du score (20 questions) + repères de priorisation.
               </div>
             </div>
           </div>
           <div class="section-body">
             <p>
-              Cochez les éléments qui sont déjà en place sur votre site. Vous
-              pouvez ensuite vous concentrer sur les points restants, étape par
-              étape.
+              <strong>Le score (0/20)</strong> correspond uniquement aux
+              <strong>20 questions cochées</strong> dans les sections 1 à 10. La
+              grille ci-dessous est un <strong>récap visuel</strong> (non
+              cliquable) de ces 20 cases.
             </p>
 
-            <div class="checklist">
-              <div class="checklist-title">Éléments à vérifier</div>
+            <!-- ✅ PATCH : 20 carrés non interactifs (miroir de q-1..q-20) -->
+            <div
+              class="final-visual"
+              role="group"
+              aria-label="Récapitulatif visuel du score (20 cases)"
+            >
+              <div class="checklist-title">Récap visuel (20 cases)</div>
+              <div class="final-grid" aria-hidden="true">
+                <span class="final-sq" data-idx="1"></span>
+                <span class="final-sq" data-idx="2"></span>
+                <span class="final-sq" data-idx="3"></span>
+                <span class="final-sq" data-idx="4"></span>
+                <span class="final-sq" data-idx="5"></span>
+                <span class="final-sq" data-idx="6"></span>
+                <span class="final-sq" data-idx="7"></span>
+                <span class="final-sq" data-idx="8"></span>
+                <span class="final-sq" data-idx="9"></span>
+                <span class="final-sq" data-idx="10"></span>
+                <span class="final-sq" data-idx="11"></span>
+                <span class="final-sq" data-idx="12"></span>
+                <span class="final-sq" data-idx="13"></span>
+                <span class="final-sq" data-idx="14"></span>
+                <span class="final-sq" data-idx="15"></span>
+                <span class="final-sq" data-idx="16"></span>
+                <span class="final-sq" data-idx="17"></span>
+                <span class="final-sq" data-idx="18"></span>
+                <span class="final-sq" data-idx="19"></span>
+                <span class="final-sq" data-idx="20"></span>
+              </div>
+              <p class="hint" style="margin-bottom: 0">
+                Astuce : vise d’abord les cases manquantes dans les sections les
+                plus faibles (affichées en haut dans “Scores par section”).
+              </p>
+            </div>
 
-              <!-- ⚠️ Cette checklist finale est visuelle (pas interactive) : tu peux la rendre interactive plus tard si tu veux -->
+            <!-- ✅ On garde tes 10 repères textuels (non interactifs) -->
+            <div class="checklist" aria-label="Repères (non interactifs)">
+              <div class="checklist-title">
+                Repères (par grandes catégories)
+              </div>
+
               <div class="checklist-item">
                 <div aria-hidden="true" class="check-square"></div>
                 <div>
@@ -2215,21 +2545,21 @@
               </div>
             </div>
 
+            <!-- ✅ PATCH : seuils alignés sur 20 -->
             <div class="score-block">
               <p class="score-level">
-                <span class="score-label">8 à 10 éléments cochés&nbsp;:</span>
-                votre site est déjà bien structuré. Vous pouvez viser des
-                optimisations fines.
+                <span class="score-label">16 à 20 cases cochées&nbsp;:</span>
+                solide — vous êtes déjà très bien. Visez des optimisations
+                fines.
               </p>
               <p class="score-level">
-                <span class="score-label">5 à 7 éléments cochés&nbsp;:</span>
-                plusieurs ajustements ciblés peuvent améliorer sensiblement
-                l’expérience de vos visiteurs.
+                <span class="score-label">10 à 15 cases cochées&nbsp;:</span>
+                bon — 2 à 5 quick wins peuvent améliorer nettement l’expérience.
               </p>
               <p class="score-level">
-                <span class="score-label">0 à 4 éléments cochés&nbsp;:</span>
-                vos visiteurs rencontrent probablement de vraies difficultés.
-                Une refonte guidée peut apporter un gain important.
+                <span class="score-label">0 à 9 cases cochées&nbsp;:</span>
+                à renforcer — vos visiteurs rencontrent probablement de vraies
+                difficultés. Priorisez les sections les plus faibles.
               </p>
             </div>
           </div>
@@ -2310,6 +2640,7 @@
         }
 
         const STORAGE_KEY = "gregdev_auto_diag_accessibilite_v2";
+        const QUESTION_TOTAL = 20;
 
         const scoreText = document.getElementById("scoreText");
         const scoreLabel = document.getElementById("scoreLabel");
@@ -2331,9 +2662,12 @@
 
         const printSummary = document.getElementById("printSummary");
 
-        function allCheckboxes() {
+        // ✅ PATCH : uniquement les 20 questions (celles qui ont data-idx)
+        function questionCheckboxes() {
           return Array.from(
-            document.querySelectorAll("input.check-input[type=checkbox]")
+            document.querySelectorAll(
+              "input.check-input[type=checkbox][data-idx]"
+            )
           );
         }
 
@@ -2372,13 +2706,9 @@
           return { dot: "#ef4444" };
         }
 
-        /**
-         * ✅ FIX PRINCIPAL : buildSectionMap manquait (ça cassait export MD + section stats)
-         * Retourne Map<sectionName, checkboxElements[]>
-         */
         function buildSectionMap() {
           const map = new Map();
-          const boxes = allCheckboxes();
+          const boxes = questionCheckboxes();
           boxes.forEach((cb) => {
             const sec = cb.getAttribute("data-section") || "Checklist";
             if (!map.has(sec)) map.set(sec, []);
@@ -2397,11 +2727,7 @@
             const firstId = items[0]?.id;
             stats.push({ sec, total, checked, pct, firstId });
           }
-          stats.sort((a, b) => {
-            if (a.sec === "Checklist finale") return 1;
-            if (b.sec === "Checklist finale") return -1;
-            return a.sec.localeCompare(b.sec, "fr");
-          });
+          stats.sort((a, b) => a.sec.localeCompare(b.sec, "fr"));
           return stats;
         }
 
@@ -2445,16 +2771,26 @@
         }
 
         function computeGlobal() {
-          const boxes = allCheckboxes();
-          const total = boxes.length;
+          const boxes = questionCheckboxes();
+          const total = QUESTION_TOTAL;
           const checked = boxes.filter((b) => b.checked).length;
           const pct = total ? Math.round((checked / total) * 100) : 0;
           return { total, checked, pct };
         }
 
-        /**
-         * ✅ Résumé imprimable propre (PDF)
-         */
+        // ✅ PATCH : sync des 20 carrés finaux
+        function syncFinalSquares() {
+          const squares = Array.from(document.querySelectorAll(".final-sq"));
+          if (squares.length === 0) return;
+
+          questionCheckboxes().forEach((cb) => {
+            const idx = cb.getAttribute("data-idx");
+            const sq = document.querySelector(`.final-sq[data-idx="${idx}"]`);
+            if (!sq) return;
+            sq.classList.toggle("is-on", cb.checked);
+          });
+        }
+
         function updatePrintSummary() {
           if (!printSummary) return;
 
@@ -2482,9 +2818,9 @@
               <h2>Résumé — Auto-diagnostic Accessibilité &amp; Clarté</h2>
 
               <div class="print-meta">
-                <span class="print-pill">Score global : <strong>${
-                  g.pct
-                }%</strong> (${g.checked}/${g.total})</span>
+                <span class="print-pill">Score global : <strong>${g.checked}/${
+            g.total
+          }</strong> (${g.pct}%)</span>
                 ${
                   pn
                     ? `<span class="print-pill">Page : <strong>${escapeHtml(
@@ -2522,9 +2858,9 @@
         function updateScore() {
           const { total, checked, pct } = computeGlobal();
 
-          if (scoreText) scoreText.textContent = pct + "%";
+          if (scoreText) scoreText.textContent = `${checked}/${total}`;
           if (scoreMeta)
-            scoreMeta.textContent = checked + "/" + total + " éléments cochés";
+            scoreMeta.textContent = `${checked}/${total} cases cochées — ${pct}%`;
 
           const lvl = scoreLevel(pct);
           if (scoreLabel) {
@@ -2540,13 +2876,14 @@
 
           if (progress) progress.setAttribute("aria-valuenow", String(pct));
 
+          syncFinalSquares();
           updateSectionScores();
           updatePrintSummary();
         }
 
         function saveState() {
           const state = {};
-          allCheckboxes().forEach((cb) => {
+          questionCheckboxes().forEach((cb) => {
             state[cb.id] = !!cb.checked;
           });
           state.__pageName = pageName ? pageName.value : "";
@@ -2564,7 +2901,7 @@
               return;
             }
             const state = JSON.parse(raw);
-            allCheckboxes().forEach((cb) => {
+            questionCheckboxes().forEach((cb) => {
               if (Object.prototype.hasOwnProperty.call(state, cb.id))
                 cb.checked = !!state[cb.id];
             });
@@ -2581,7 +2918,7 @@
 
         function groupBySection() {
           const map = new Map();
-          allCheckboxes().forEach((cb) => {
+          questionCheckboxes().forEach((cb) => {
             const sec = cb.getAttribute("data-section") || "Checklist";
             if (!map.has(sec)) map.set(sec, []);
             const label =
@@ -2594,8 +2931,8 @@
         }
 
         function toTrelloMarkdown() {
-          const boxes = allCheckboxes();
-          const total = boxes.length;
+          const boxes = questionCheckboxes();
+          const total = QUESTION_TOTAL;
           const checked = boxes.filter((b) => b.checked).length;
           const pct = total ? Math.round((checked / total) * 100) : 0;
 
@@ -2603,131 +2940,22 @@
           const ad = auditDate?.value || "";
           const nt = notes?.value?.trim() || "";
 
-          // --- Helpers ---
-          const level = scoreLevel(pct); // déjà dans ton script
+          const level = scoreLevel(pct);
           const badgeEmoji = pct >= 80 ? "🟢" : pct >= 55 ? "🟠" : "🔴";
 
-          const sectionInsights = {
-            "Contraste de couleurs insuffisant": {
-              why: "Lisibilité difficile (mobile, soleil, fatigue visuelle).",
-              benefit:
-                "Lecture plus fluide → moins d’abandons → plus de conversions.",
-            },
-            "Police trop petite et manque de hiérarchie": {
-              why: "Tout se mélange, l’œil ne sait pas où commencer.",
-              benefit:
-                "Scan rapide + compréhension immédiate → meilleure rétention.",
-            },
-            "Message principal flou": {
-              why: "Le visiteur ne comprend pas assez vite qui vous êtes / ce que vous faites.",
-              benefit:
-                "Moins de confusion → plus de confiance → plus de contacts.",
-            },
-            "Boutons et liens d’action flous": {
-              why: "On hésite à cliquer si l’action n’est pas explicite.",
-              benefit: "CTA plus efficaces → plus de demandes / réservations.",
-            },
-            "Texte structuré uniquement par la couleur ou le gras": {
-              why: "Lecture pénible, surtout sur mobile (et moins accessible).",
-              benefit: "Contenu scannable → infos clés mieux retenues.",
-            },
-            "Images importantes sans description ni texte alternatif": {
-              why: "Infos perdues si image non visible ou lecteur d’écran.",
-              benefit:
-                "Portfolio/produits compréhensibles par tous → meilleure clarté.",
-            },
-            "Formulaires confus ou trop lourds": {
-              why: "Abandon avant envoi (trop long / pas clair).",
-              benefit: "Plus de formulaires envoyés → plus d’opportunités.",
-            },
-            "Navigation lourde ou incohérente": {
-              why: "Trouver l’info prend trop de temps → frustration.",
-              benefit:
-                "Parcours simple → plus de pages vues utiles → plus d’actions.",
-            },
-            "Zones cliquables trop petites / peu de repères au clavier": {
-              why: "Clics ratés / navigation clavier difficile.",
-              benefit: "Confort mobile + accessibilité → moins de frictions.",
-            },
-            "Trop d’effets visuels qui nuisent à la lecture": {
-              why: "Surcharge cognitive, difficulté à se concentrer.",
-              benefit:
-                "Plus de calme → meilleure compréhension → meilleur engagement.",
-            },
-            "Checklist finale": {
-              why: "Synthèse globale des fondamentaux.",
-              benefit: "Vision claire des priorités.",
-            },
-          };
+          const stats = computeSectionStats();
+          const groups = groupBySection();
 
-          function computePriority(sectionPct) {
-            // Ajuste si tu veux : c’est une heuristique simple et utile
-            if (sectionPct < 55) return "P0";
-            if (sectionPct < 80) return "P1";
-            if (sectionPct < 95) return "P2";
-            return null;
-          }
-
-          // Section -> items (checkbox + label + checked)
-          const groups = groupBySection(); // déjà dans ton script (Map)
-          const stats = computeSectionStats(); // déjà dans ton script
-
-          // --- Constats rapides : top 3 sections les plus faibles ---
-          const weakest = [...stats]
-            .filter((s) => s.sec !== "Checklist finale")
-            .sort((a, b) => a.pct - b.pct)
-            .slice(0, 3);
-
-          // --- Quick Wins P0/P1/P2 : on liste les items NON cochés par section ---
-          const quickWins = { P0: [], P1: [], P2: [] };
-
-          stats.forEach((s) => {
-            const prio = computePriority(s.pct);
-            if (!prio) return;
-
-            const items = groups.get(s.sec) || [];
-            const unchecked = items.filter((it) => !it.checked);
-
-            // On évite de spam si une section est déjà ok
-            if (unchecked.length === 0) return;
-
-            // On limite à 4 items par section pour rester “Trello-friendly”
-            const topUnchecked = unchecked.slice(0, 4);
-
-            topUnchecked.forEach((it) => {
-              quickWins[prio].push({
-                section: s.sec,
-                label: it.label,
-              });
-            });
-          });
-
-          // --- Tableau Axes / Pourquoi / Bénéfices (priorité P0+P1) ---
-          const axes = stats
-            .filter((s) => s.pct < 80) // on se concentre sur ce qui a le plus d’impact
-            .sort((a, b) => a.pct - b.pct)
-            .slice(0, 7);
-
-          // --- Reco copywriting (pilotée par sections 3 & 4) ---
-          const secMessage = stats.find(
-            (s) => s.sec === "Message principal flou"
-          );
-          const secCTA = stats.find(
-            (s) => s.sec === "Boutons et liens d’action flous"
-          );
+          const weakest = [...stats].sort((a, b) => a.pct - b.pct).slice(0, 3);
 
           const lines = [];
-
-          // ====== Header (format Trello) ======
           lines.push(`🧩 **Mini audit express — Accessibilité & clarté**`);
           lines.push(`**Page auditée :** ${pn}`);
           if (ad) lines.push(`**Date :** ${ad}`);
           lines.push(
-            `**Score global :** ${badgeEmoji} **${pct}%** — ${level.label} (${checked}/${total})`
+            `**Score global :** ${badgeEmoji} **${checked}/${total}** — ${level.label} (${pct}%)`
           );
           lines.push("");
-
-          // Coordonnées (ton format)
           lines.push(`—`);
           lines.push(`**GregDev — Gregory Poupaux**`);
           lines.push(`Développeur web front-end (UX & accessibilité)`);
@@ -2737,116 +2965,24 @@
           lines.push(`—`);
           lines.push("");
 
-          // ====== Constats rapides ======
           lines.push(`## ⚡ Constats rapides`);
-          if (weakest.length === 0) {
+          weakest.forEach((w) => {
             lines.push(
-              `- Rien de bloquant détecté dans les scores par section (bravo).`
+              `- **${w.sec}** : **${w.pct}%** (${w.checked}/${w.total})`
             );
-          } else {
-            weakest.forEach((w) => {
-              lines.push(
-                `- **${w.sec}** : **${w.pct}%** (${w.checked}/${w.total})`
-              );
-            });
-          }
-          lines.push("");
-
-          // ====== Quick Wins ======
-          lines.push(`## ✅ Quick Wins (priorisés)`);
-          ["P0", "P1", "P2"].forEach((p) => {
-            const title =
-              p === "P0"
-                ? "P0 — à corriger en premier (impact direct sur compréhension / actions)"
-                : p === "P1"
-                ? "P1 — amélioration forte (confort & confiance)"
-                : "P2 — finitions (polish / cohérence / optimisation)";
-            lines.push(`### ${title}`);
-
-            if (quickWins[p].length === 0) {
-              lines.push(`- (Rien de critique identifié ici)`);
-            } else {
-              quickWins[p].forEach((q) => {
-                lines.push(`- **${q.section}** → ${q.label}`);
-              });
-            }
-            lines.push("");
           });
-
-          // ====== Tableau Axes / Bénéfices ======
-          lines.push(
-            `## 📌 Axes d’amélioration & bénéfices (vision “business”)`
-          );
-          lines.push(`| Axe | Pourquoi | Bénéfice concret |`);
-          lines.push(`|---|---|---|`);
-          if (axes.length === 0) {
-            lines.push(`| — | — | — |`);
-          } else {
-            axes.forEach((a) => {
-              const info = sectionInsights[a.sec] || { why: "—", benefit: "—" };
-              lines.push(`| **${a.sec}** | ${info.why} | ${info.benefit} |`);
-            });
-          }
           lines.push("");
 
-          // ====== Reco Copywriting ======
-          lines.push(`## ✍️ Reco copywriting (Hero + CTA)`);
-          if (!secMessage || secMessage.pct >= 80) {
-            lines.push(
-              `- Hero : OK / suffisamment clair (à affiner si besoin).`
-            );
-          } else {
-            lines.push(
-              `- **Hero (à clarifier)** : vise une phrase “activité + promesse + zone”.`
-            );
-            lines.push(
-              `  - Exemple : “**[Service] à [Ville/Région] — [Résultat concret]**”`
-            );
-            lines.push(`  - Exemple : “**[Métier] — [Spécialité] — [Zone]**”`);
-          }
-
-          if (!secCTA || secCTA.pct >= 80) {
-            lines.push(`- CTA : OK / actions globalement compréhensibles.`);
-          } else {
-            lines.push(
-              `- **CTA (à rendre explicites)** : préférer des verbes concrets :`
-            );
-            lines.push(
-              `  - “Demander un devis”, “Prendre RDV”, “Envoyer un message”, “Voir le portfolio”, “Obtenir un tarif”`
-            );
-            lines.push(
-              `  - Éviter : “En savoir plus”, “Découvrir”, “Cliquez ici” (trop flou)`
-            );
-          }
-          lines.push("");
-
-          // ====== Plan d’action ======
-          lines.push(`## 🗓️ Plan d’action (simple)`);
-          lines.push(
-            `- **Cette semaine (P0)** : traiter ce qui empêche de comprendre / d’agir.`
-          );
-          lines.push(
-            `- **Ensuite (P1)** : améliorer lisibilité + structure + parcours.`
-          );
-          lines.push(
-            `- **Après (P2)** : finitions (cohérence, confort, détails).`
-          );
-          lines.push("");
-
-          // ====== Notes libres ======
           if (nt) {
             lines.push(`## 🧠 Notes`);
             lines.push(nt);
             lines.push("");
           }
 
-          // ====== Détails complets (toutes les cases) ======
-          lines.push(`## 📋 Détails (toutes les vérifications)`);
-          const keys = Array.from(groups.keys()).sort((a, b) => {
-            if (a === "Checklist finale") return 1;
-            if (b === "Checklist finale") return -1;
-            return a.localeCompare(b, "fr");
-          });
+          lines.push(`## 📋 Détails (les 20 vérifications)`);
+          const keys = Array.from(groups.keys()).sort((a, b) =>
+            a.localeCompare(b, "fr")
+          );
 
           keys.forEach((sec) => {
             lines.push(`### ${sec}`);
@@ -2860,13 +2996,12 @@
         }
 
         function bind() {
-          allCheckboxes().forEach((cb) => {
+          questionCheckboxes().forEach((cb) => {
             cb.addEventListener("change", () => {
               saveState();
               updateScore();
             });
 
-            // Espace marche nativement; on ajoute Enter (UX)
             cb.addEventListener("keydown", (e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -2878,8 +3013,14 @@
 
           [pageName, auditDate, notes].forEach((el) => {
             if (!el) return;
-            el.addEventListener("input", saveState);
-            el.addEventListener("change", saveState);
+            el.addEventListener("input", () => {
+              saveState();
+              updateScore();
+            });
+            el.addEventListener("change", () => {
+              saveState();
+              updateScore();
+            });
           });
 
           if (exportBtn) {
@@ -2928,7 +3069,7 @@
 
           if (resetBtn) {
             resetBtn.addEventListener("click", () => {
-              allCheckboxes().forEach((cb) => (cb.checked = false));
+              questionCheckboxes().forEach((cb) => (cb.checked = false));
               if (pageName) pageName.value = "";
               if (notes) notes.value = "";
               if (auditDate)
@@ -2942,8 +3083,20 @@
           if (printBtn) {
             printBtn.addEventListener("click", () => window.print());
           }
+          const exportMenu = document.getElementById("exportMenu");
 
-          // ✅ Important : avant impression, on régénère le résumé (évite "PDF brouillon")
+          function isMobile() {
+            return window.matchMedia("(max-width: 860px)").matches;
+          }
+
+          // Ferme le menu après une action (mobile)
+          ["exportBtn", "copyBtn", "resetBtn", "printBtn"].forEach((id) => {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            btn.addEventListener("click", () => {
+              if (exportMenu && isMobile()) exportMenu.open = false;
+            });
+          });
           window.addEventListener("beforeprint", updatePrintSummary);
         }
 
