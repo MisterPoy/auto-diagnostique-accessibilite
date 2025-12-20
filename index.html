@@ -984,18 +984,16 @@
           padding: 8px 12px;
         }
 
-        /* On évite que le bandeau empile trop */
         .score-meta {
           display: none;
         }
 
-        /* Ces 2 zones ajoutent beaucoup de hauteur → on les cache dans le bandeau mobile */
-        .sections-pop,
+        /* ✅ Contexte caché en mobile (ok) */
         .panel-context {
           display: none !important;
         }
 
-        /* menu en colonne (plus lisible) */
+        /* menu export en colonne (plus lisible) */
         .panel-menu {
           flex-direction: column;
           align-items: stretch;
@@ -1060,6 +1058,15 @@
         border-radius: 12px;
         font-weight: 800;
         font-size: 13px; /* ↓ un poil */
+      }
+
+      .cover-top-badge {
+        font-size: 1.05rem;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-strong);
+        text-align: right;
       }
 
       /* "Plus" ressemble à un bouton (summary stylé) */
@@ -1144,6 +1151,65 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+      }
+      /* ===== PATCH MOBILE : "Scores par section" en dropdown propre ===== */
+      @media (max-width: 860px) {
+        .sections-pop {
+          position: relative;
+          margin-top: 8px;
+          padding-top: 0;
+          border-top: 0;
+        }
+
+        .sections-pop > summary {
+          list-style: none;
+          cursor: pointer;
+          user-select: none;
+
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+
+          padding: 7px 10px;
+          border-radius: 12px;
+          border: 1px solid rgba(17, 24, 39, 0.16);
+          background: rgba(17, 24, 39, 0.04);
+          color: #111827;
+          font-weight: 900;
+          font-size: 13px;
+        }
+
+        .sections-pop > summary::-webkit-details-marker {
+          display: none;
+        }
+
+        /* Le menu qui s'ouvre (la liste) */
+        .sections-pop .sections-list {
+          position: absolute;
+          left: 0;
+          top: calc(100% + 8px);
+          z-index: 10002;
+
+          width: min(360px, 92vw);
+          margin: 0;
+          padding: 10px;
+          list-style: none;
+
+          border-radius: 14px;
+          border: 1px solid rgba(17, 24, 39, 0.14);
+          background: rgba(255, 255, 255, 0.96);
+          box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        /* Les pills prennent toute la largeur */
+        .sections-pop .sec-pill {
+          width: 100%;
+          justify-content: space-between;
+        }
       }
 
       /* ⚠️ IMPORTANT : on n'utilise PAS .pill ici, sinon on casse le hero */
@@ -1373,13 +1439,10 @@
       <div class="page-inner" id="appMain">
         <div class="cover-top">
           <img alt="Logo GregDev" class="logo-main" src="GregDevLogo.png" />
-          <div class="cover-tagline">
-            Guide pratique · Auto-diagnostic “Accessibilité &amp; clarté”
-          </div>
+          <div class="cover-top-badge">Guide pratique</div>
         </div>
         <div class="cover-main">
           <div class="cover-left">
-            <div class="cover-guide-label">Guide pratique</div>
             <div class="cover-main-title">
               Auto-diagnostic “Accessibilité &amp; clarté” pour votre site web
             </div>
