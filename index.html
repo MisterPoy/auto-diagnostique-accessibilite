@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Guide pratique – Auto-diagnostic “Accessibilité &amp; clarté” | GregDev
+    </title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      :root {
+        --page-bg: #e5e7eb;
+        --paper-bg: #ffffff;
+        --ink: #111827;
+        --muted: #4b5563;
+        --accent: #4f46e5;
+        --accent-soft: #eef2ff;
+        --accent-strong: #3730a3;
+        --good-bg: #ecfdf3;
+        --good-border: #22c55e;
+        --good-text: #166534;
+        --bad-bg: #fef2f2;
+        --bad-border: #f97373;
+        --bad-text: #b91c1c;
+        --card-bg: #f9fafb;
+        --divider: #e5e7eb;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        color: var(--ink);
+        background: radial-gradient(
+          circle at top left,
+          #e0ecff 0,
+          var(--page-bg) 40%,
+          #d1d5db 100%
+        );
+        line-height: 1.6;
+      }
+
+      /* GENERIC PAGE BLOCK */
+      .page {
+        max-width: 980px;
+        margin: 32px auto;
+        background: var(--paper-bg);
+        border-radius: 20px;
+        box-shadow: 0 22px 60px rgba(15, 23, 42, 0.25),
+          0 0 0 1px rgba(148, 163, 184, 0.15);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .page-inner {
+        padding: 32px 44px 40px;
+      }
+
+      .page--content::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 6px;
+        background: linear-gradient(180deg, #6366f1, #4f46e5, #7c3aed);
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          margin: 0;
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        .page-inner {
+          padding: 24px 20px 32px;
+        }
+
+        .page--content::before {
+          display: none;
+        }
+      }
+
+      /* LOGOS */
+      .logo-main {
+        max-width: 160px;
+        height: auto;
+      }
+
+      .logo-small {
+        max-height: 32px;
+        width: auto;
+      }
+
+      /* TITRES GÉNÉRAUX */
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 8px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      h1 {
+        font-size: 2rem;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      h3 {
+        font-size: 1.05rem;
+      }
+
+      p {
+        margin: 0 0 10px;
+        font-size: 0.98rem;
+      }
+
+      ul {
+        margin: 0 0 10px 1.25rem;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      a {
+        color: var(--accent-strong);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* PAGE DE COUVERTURE */
+      .cover-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .cover-tagline {
+        font-size: 0.9rem;
+        color: #6b7280;
+        text-align: right;
+      }
+
+      .cover-main {
+        display: grid;
+        grid-template-columns: minmax(0, 2.4fr) minmax(0, 2.2fr);
+        gap: 24px;
+        align-items: center;
+      }
+
+      @media (max-width: 800px) {
+        .cover-main {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 18px;
+        }
+
+        .cover-tagline {
+          text-align: left;
+        }
+      }
+
+      .cover-left {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .cover-guide-label {
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-strong);
+      }
+
+      .cover-main-title {
+        font-size: 2.25rem;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+
+      .cover-subtitle {
+        font-size: 1.05rem;
+        color: #374151;
+        max-width: 480px;
+      }
+
+      .cover-author {
+        font-size: 0.92rem;
+        color: #4b5563;
+      }
+
+      .cover-right {
+        border-radius: 18px;
+        padding: 18px 18px 20px;
+        background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+        border: 1px solid rgba(129, 140, 248, 0.4);
+        font-size: 0.94rem;
+        color: #1f2937;
+      }
+
+      .cover-right-title {
+        font-weight: 600;
+        margin-bottom: 6px;
+        font-size: 0.96rem;
+        color: var(--accent-strong);
+      }
+
+      .cover-meta {
+        margin-top: 4px;
+        font-size: 0.9rem;
+        color: #4b5563;
+      }
+
+      /* HEADER / PAGES CONTENU */
+      .header {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+        gap: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--divider);
+        align-items: flex-start;
+      }
+
+      @media (max-width: 800px) {
+        .header {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .hero-main {
+        position: relative;
+        padding-right: 8px;
+      }
+
+      .hero-topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 4px;
+      }
+
+      .hero-guide-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-strong);
+      }
+
+      .eyebrow {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: #6b7280;
+      }
+
+      .tagline {
+        font-size: 1rem;
+        color: #374151;
+        margin-top: 8px;
+        max-width: 520px;
+      }
+
+      .author-block {
+        margin-top: 14px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .author-name {
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .hero-side {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .pill {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-strong);
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .pill-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      .hero-card {
+        border-radius: 14px;
+        padding: 14px 16px;
+        background: linear-gradient(135deg, #eef2ff, #e0f2fe);
+        border: 1px solid rgba(129, 140, 248, 0.3);
+        font-size: 0.9rem;
+        color: #1f2937;
+      }
+
+      .hero-card-title {
+        font-weight: 600;
+        margin-bottom: 4px;
+        font-size: 0.92rem;
+      }
+
+      .hero-meta {
+        font-size: 0.88rem;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      /* SECTIONS */
+      .section {
+        margin-top: 26px;
+        padding: 18px 18px 20px;
+        border-radius: 16px;
+        background: rgba(249, 250, 251, 0.95);
+        border: 1px solid #e5e7eb;
+      }
+
+      .section + .section {
+        margin-top: 20px;
+      }
+
+      .section:nth-of-type(even) {
+        background: #ffffff;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .section-index {
+        flex-shrink: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        border: 2px solid var(--accent);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--accent-strong);
+        background: #eef2ff;
+      }
+
+      .section-subtitle {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .section-body {
+        margin-top: 10px;
+        font-size: 0.96rem;
+      }
+
+      .two-cols {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+        gap: 18px;
+        margin-top: 12px;
+      }
+
+      @media (max-width: 800px) {
+        .two-cols {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .info-card {
+        border-radius: 14px;
+        border: 1px dashed rgba(148, 163, 184, 0.7);
+        padding: 14px 16px;
+        background: #f9fafb;
+        font-size: 0.94rem;
+      }
+
+      .info-card h3 {
+        margin-top: 0;
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+      }
+
+      .hint {
+        font-size: 0.88rem;
+        color: var(--muted);
+        border-left: 3px solid var(--accent);
+        padding-left: 10px;
+        margin-top: 6px;
+      }
+
+      .impact-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .practice-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 640px) {
+        .practice-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .practice-card {
+        border-radius: 12px;
+        padding: 10px 12px 11px;
+        font-size: 0.92rem;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .practice-bad {
+        background: var(--bad-bg);
+        border: 1px solid var(--bad-border);
+        color: var(--bad-text);
+      }
+
+      .practice-good {
+        background: var(--good-bg);
+        border: 1px solid var(--good-border);
+        color: var(--good-text);
+      }
+
+      .practice-label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .practice-label::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        border: 2px solid currentColor;
+      }
+
+      .practice-text {
+        font-size: 0.9rem;
+        color: inherit;
+      }
+
+      .check-block {
+        margin-top: 10px;
+        font-size: 0.9rem;
+      }
+
+      .checklist-section {
+        margin-top: 30px;
+      }
+
+      .checklist {
+        margin-top: 10px;
+        border-radius: 16px;
+        border: 1px solid var(--divider);
+        background: var(--card-bg);
+        padding: 14px 16px;
+      }
+
+      .checklist-title {
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+      }
+
+      .check-square {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 1px solid #9ca3af;
+        flex-shrink: 0;
+        margin-top: 2px;
+        background: #ffffff;
+      }
+
+      .score-block {
+        margin-top: 10px;
+        border-radius: 14px;
+        background: #ffffff;
+        border: 1px dashed var(--divider);
+        padding: 12px 14px;
+        font-size: 0.9rem;
+      }
+
+      .score-level {
+        margin-bottom: 4px;
+      }
+
+      .score-label {
+        font-weight: 600;
+      }
+
+      .footer {
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px solid var(--divider);
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+
+      .cta-block {
+        border-radius: 16px;
+        padding: 14px 16px 16px;
+        background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+        border: 1px solid rgba(129, 140, 248, 0.5);
+        margin-bottom: 14px;
+      }
+
+      .cta-title {
+        font-weight: 600;
+        font-size: 0.96rem;
+        margin-bottom: 4px;
+        color: var(--accent-strong);
+      }
+
+      .contact-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        margin-top: 8px;
+      }
+
+      .contact-item {
+        font-size: 0.9rem;
+      }
+
+      /* IMPRESSION / PDF */
+      @media print {
+        body {
+          background: #ffffff;
+        }
+
+        .page {
+          margin: 0 auto;
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        .page-inner {
+          padding: 18mm 18mm 20mm;
+        }
+
+        .page--content::before {
+          display: none;
+        }
+
+        .page + .page {
+          page-break-before: always;
+          break-before: page;
+        }
+
+        a {
+          color: var(--ink);
+          text-decoration: underline;
+        }
+
+        .section,
+        .intro-grid,
+        .info-card,
+        .two-cols,
+        .practice-grid,
+        .checklist,
+        .score-block,
+        .cta-block,
+        .header,
+        .cover-main {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+
+        h2,
+        h3 {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+      }
+
+      /* === Interactive & Accessibility additions (GregDev) === */
+      .skip-link {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 2px solid #111827;
+        color: #111827;
+        transform: translateY(-140%);
+        transition: transform 0.15s ease;
+        z-index: 10000;
+      }
+      .skip-link:focus {
+        transform: translateY(0%);
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      textarea:focus-visible,
+      summary:focus-visible,
+      [tabindex]:focus-visible {
+        outline: 3px solid rgba(79, 70, 229, 0.75);
+        outline-offset: 3px;
+        border-radius: 12px;
+      }
+
+      .sticky-panel {
+        position: sticky;
+        top: 0;
+        z-index: 9990;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(17, 24, 39, 0.12);
+      }
+      .sticky-inner {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 10px 16px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 10px;
+        align-items: start;
+      }
+      @media (max-width: 860px) {
+        .sticky-inner {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .score-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .score-big {
+        font-size: 26px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        margin: 0;
+        line-height: 1.1;
+      }
+      .score-meta {
+        margin: 6px 0 0;
+        font-size: 14px;
+        color: #374151;
+      }
+      .score-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(17, 24, 39, 0.14);
+        background: rgba(79, 70, 229, 0.08);
+        font-weight: 800;
+      }
+      .score-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ef4444;
+      }
+      .progress {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(17, 24, 39, 0.08);
+        overflow: hidden;
+        border: 1px solid rgba(17, 24, 39, 0.12);
+        margin-top: 8px;
+      }
+      .progress .bar {
+        height: 100%;
+        width: 0%;
+        background: #ef4444;
+        transition: width 0.2s ease;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      .panel-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .panel-actions button {
+        appearance: none;
+        border: 1px solid rgba(17, 24, 39, 0.16);
+        background: rgba(17, 24, 39, 0.04);
+        color: #111827;
+        padding: 9px 10px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 800;
+      }
+      .panel-actions button:hover {
+        background: rgba(17, 24, 39, 0.08);
+      }
+
+      .panel-context {
+        grid-column: 1 / -1;
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(17, 24, 39, 0.1);
+      }
+      .panel-context > summary {
+        cursor: pointer;
+        font-weight: 800;
+        color: #111827;
+      }
+
+      .panel-context .field-row {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 10px;
+      }
+      @media (max-width: 700px) {
+        .panel-context .field-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .field {
+        margin-top: 10px;
+      }
+      .field-label {
+        font-weight: 800;
+        font-size: 13px;
+        color: #111827;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .field-input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(17, 24, 39, 0.16);
+        background: white;
+        color: #111827;
+        font-size: 14px;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 8px 0;
+      }
+      .check-input {
+        width: 28px;
+        height: 28px;
+        margin-top: 2px;
+        accent-color: #4f46e5;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+      .checklist-item label {
+        cursor: pointer;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 18px;
+        transform: translateX(-50%);
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: rgba(17, 24, 39, 0.92);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        font-weight: 800;
+        font-size: 14px;
+        z-index: 10001;
+      }
+
+      /* Scores par section (bandeau) : repliable pour éviter l'effet "ça mange l'écran" */
+      .sections-pop {
+        margin-top: 10px;
+        border-top: 1px solid rgba(17, 24, 39, 0.1);
+        padding-top: 8px;
+      }
+      .sections-pop > summary {
+        cursor: pointer;
+        font-weight: 800;
+        color: #111827;
+        font-size: 14px;
+      }
+      .sections-list {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      /* ⚠️ IMPORTANT : on n'utilise PAS .pill ici, sinon on casse le hero */
+      .sec-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(17, 24, 39, 0.04);
+        border: 1px solid rgba(17, 24, 39, 0.14);
+        font-size: 12px;
+        color: #111827;
+      }
+      .sec-pill strong {
+        font-weight: 900;
+      }
+      .sec-pill .mini-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        background: #ef4444;
+      }
+
+      /* Impression : on cache la sticky bar et on ajoute un résumé propre */
+      .print-only {
+        display: none;
+      }
+      @media print {
+        .sticky-panel,
+        #toast,
+        #mdOut {
+          display: none !important;
+        }
+        .print-only {
+          display: block !important;
+        }
+
+        .print-summary {
+          border: 1px solid #111827;
+          padding: 14px;
+          margin: 0 0 14px;
+          border-radius: 10px;
+        }
+        .print-summary h2 {
+          margin: 0 0 10px;
+          font-size: 18px;
+        }
+
+        .print-meta {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-bottom: 10px;
+          font-size: 12px;
+        }
+        .print-pill {
+          border: 1px solid #111827;
+          padding: 6px 10px;
+          border-radius: 999px;
+        }
+
+        table.print-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 12px;
+          margin-top: 10px;
+        }
+        table.print-table th,
+        table.print-table td {
+          border: 1px solid #111827;
+          padding: 8px;
+          vertical-align: top;
+        }
+        table.print-table th {
+          background: #f3f4f6;
+          font-weight: 800;
+          text-align: left;
+        }
+
+        .print-notes {
+          margin-top: 12px;
+          font-size: 12px;
+          white-space: pre-wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#appMain">Aller au contenu principal</a>
+
+    <div
+      aria-label="Score et actions (outil interactif)"
+      class="sticky-panel"
+      role="region"
+    >
+      <div class="sticky-inner">
+        <div>
+          <div class="score-row">
+            <p class="score-big" id="scoreText">0%</p>
+            <span class="score-badge"
+              ><span class="score-dot" id="scoreDot"></span
+              ><span id="scoreLabel">À renforcer</span></span
+            >
+          </div>
+          <p aria-live="polite" class="score-meta" id="scoreMeta">
+            0/0 éléments cochés
+          </p>
+          <div
+            aria-label="Progression du score"
+            aria-valuemax="100"
+            aria-valuemin="0"
+            aria-valuenow="0"
+            class="progress"
+            id="progress"
+            role="progressbar"
+          >
+            <div class="bar" id="bar"></div>
+          </div>
+
+          <details class="sections-pop">
+            <summary>Scores par section</summary>
+            <ul id="sectionsBreakdown" class="sections-list" aria-live="polite"></ul>
+          </details>
+        </div>
+
+        <div>
+          <div aria-label="Actions" class="panel-actions">
+            <button id="exportBtn" type="button">Exporter (Markdown)</button>
+            <button id="copyBtn" type="button">Copier</button>
+            <button id="resetBtn" type="button">Réinitialiser</button>
+            <button id="printBtn" type="button">Imprimer / PDF</button>
+          </div>
+
+          <details class="panel-context">
+            <summary>Contexte d’audit (facultatif)</summary>
+            <div>
+              <div class="field-row">
+                <div class="field">
+                  <label class="field-label" for="pageName">Page auditée</label>
+                  <input
+                    class="field-input"
+                    id="pageName"
+                    placeholder="Ex : Accueil / Contact / /prestations"
+                    type="text"
+                  />
+                </div>
+                <div class="field">
+                  <label class="field-label" for="auditDate">Date</label>
+                  <input class="field-input" id="auditDate" type="date" />
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label" for="notes">Notes</label>
+                <textarea
+                  class="field-input"
+                  id="notes"
+                  placeholder="Quick wins, captures à faire, décisions…"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+          </details>
+
+          <textarea aria-label="Export Markdown" class="sr-only" id="mdOut"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 1 : COUVERTURE -->
+    <div class="page page--cover">
+      <div class="page-inner" id="appMain">
+        <div class="cover-top">
+          <img alt="Logo GregDev" class="logo-main" src="GregDevLogo.png" />
+          <div class="cover-tagline">
+            Guide pratique · Auto-diagnostic “Accessibilité &amp; clarté”
+          </div>
+        </div>
+        <div class="cover-main">
+          <div class="cover-left">
+            <div class="cover-guide-label">Guide pratique</div>
+            <div class="cover-main-title">
+              Auto-diagnostic “Accessibilité &amp; clarté” pour votre site web
+            </div>
+            <p class="cover-subtitle">
+              Un guide pas à pas pour évaluer vous-même le confort de lecture,
+              la clarté et la facilité d’utilisation de votre site, sans jargon
+              technique.
+            </p>
+            <p class="cover-author">
+              Rédigé par <strong>Gregory Poupaux</strong>, développeur web
+              front-end freelance (GregDev), spécialisé en sites vitrines et
+              applications web sur mesure orientés expérience utilisateur et
+              accessibilité.
+            </p>
+          </div>
+          <div class="cover-right">
+            <div class="cover-right-title">
+              À qui s’adresse cet auto-diagnostic&nbsp;?
+            </div>
+            <p>
+              Aux indépendants, studios, petites entreprises et structures
+              locales qui veulent vérifier si leur site est confortable à lire,
+              à comprendre et à utiliser pour leurs visiteurs, y compris les
+              personnes moins à l’aise avec le numérique.
+            </p>
+            <p class="cover-meta">
+              Ce guide ne remplace pas un diagnostic complet réalisé par un
+              professionnel, mais il vous permet d’identifier rapidement les
+              erreurs les plus fréquentes et de voir où concentrer vos efforts
+              en priorité.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2+ : CONTENU -->
+    <div class="page page--content">
+      <div class="page-inner">
+        <!-- Résumé imprimable (apparaît uniquement en PDF / impression) -->
+        <div class="print-only" id="printSummary" aria-label="Résumé pour impression"></div>
+
+        <!-- HEADER / HERO -->
+        <header class="header">
+          <div class="hero-main">
+            <h1>Auto-diagnostic “Accessibilité &amp; clarté”</h1>
+            <p class="tagline">
+              10 erreurs fréquentes qui rendent un site difficile à lire ou à
+              utiliser, et des pistes concrètes pour les corriger
+              progressivement.
+            </p>
+            <div class="author-block">
+              <span class="author-name">Gregory Poupaux</span>, développeur web
+              front-end freelance (GregDev).
+            </div>
+          </div>
+          <div class="hero-side">
+            <div class="pill">
+              <span aria-hidden="true" class="pill-dot"></span>
+              <span>Confort de lecture &amp; parcours utilisateur</span>
+            </div>
+            <div class="hero-card">
+              <div class="hero-card-title">
+                Le principe de cet auto-diagnostic
+              </div>
+              <p style="margin-bottom: 4px">
+                Vous parcourez votre site avec un regard neuf, en vous appuyant
+                sur des exemples de mauvaises et de bonnes pratiques. L’idée
+                n’est pas de juger votre travail, mais d’ouvrir des pistes
+                d’amélioration concrètes.
+              </p>
+              <p class="hero-meta">
+                Vous pouvez utiliser ce guide seul, ou comme base d’échange pour
+                un accompagnement plus poussé avec un diagnostic personnalisé.
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <!-- 0. AVANT DE COMMENCER -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">0</div>
+            <div>
+              <h2>Avant de commencer</h2>
+              <div class="section-subtitle">
+                Comment utiliser ce guide et vous auto-évaluer.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Beaucoup de sites sont visuellement soignés, mais difficiles à
+              lire, à comprendre ou à utiliser au quotidien. Ce guide a pour
+              objectif de vous aider à repérer les points qui freinent vos
+              visiteurs, en particulier les personnes moins à l’aise avec le
+              numérique ou ayant une vision plus fragile.
+            </p>
+            <div class="two-cols intro-grid">
+              <div>
+                <div class="impact-title">
+                  Comment utiliser cet auto-diagnostic
+                </div>
+                <ol
+                  style="
+                    margin: 0 0 8px 1.25rem;
+                    padding: 0;
+                    font-size: 0.94rem;
+                  "
+                >
+                  <li>
+                    Ouvrez votre site sur ordinateur <strong>et</strong> sur
+                    mobile.
+                  </li>
+                  <li>
+                    Pour chaque erreur, regardez si vous vous retrouvez dans la
+                    colonne <strong>Mauvaise pratique</strong>.
+                  </li>
+                  <li>
+                    Inspirez-vous de la colonne
+                    <strong>Bonne pratique</strong> pour faire évoluer votre
+                    site.
+                  </li>
+                  <li>
+                    Terminez par la checklist finale pour visualiser votre marge
+                    de progression.
+                  </li>
+                </ol>
+                <p class="hint">
+                  Essayez de vous mettre dans la peau d’un visiteur qui ne vous
+                  connaît pas encore et qui découvre votre site pour la première
+                  fois.
+                </p>
+              </div>
+              <div class="info-card">
+                <h3>Ce que ce guide ne fait pas</h3>
+                <p>
+                  Cet auto-diagnostic ne vise pas à juger votre identité
+                  graphique ou votre style. Il se concentre sur la manière dont
+                  votre contenu est perçu et utilisé&nbsp;: lisibilité, clarté,
+                  confort, repères.
+                </p>
+                <p>
+                  Vous pouvez l’appliquer progressivement, sans renoncer à votre
+                  univers visuel.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1. CONTRASTE -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">1</div>
+            <div>
+              <h2>Contraste de couleurs insuffisant</h2>
+              <div class="section-subtitle">
+                Quand le “design” prend le pas sur la lisibilité.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Texte trop clair sur fond clair, texte sombre sur fond sombre ou
+              texte posé sur une image très chargée&nbsp;: visuellement, cela
+              peut sembler élégant, mais pour de nombreuses personnes, la
+              lecture devient pénible, voire impossible.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>
+                    Lecture difficile, surtout sur mobile ou en plein jour.
+                  </li>
+                  <li>Fatigue visuelle rapide et abandon de la page.</li>
+                  <li>
+                    Difficulté majeure pour les personnes ayant une vue
+                    affaiblie ou un contraste faible sur leur écran.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Page d’accueil avec texte gris clair sur une photo sombre
+                      en arrière-plan, boutons peu visibles, liens noyés dans
+                      l’image.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Fond assombri ou remplacé par un aplat, texte sombre sur
+                      fond clair (ou inversement), boutons d’action avec couleur
+                      contrastée et lisible.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Contraste de couleurs insuffisant"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Contraste de couleurs insuffisant"
+                    id="q-1"
+                    type="checkbox"
+                  />
+                  <label for="q-1"
+                    >Vos textes restent-ils lisibles sans effort sur un écran
+                    lumineux ou en plein jour&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Contraste de couleurs insuffisant"
+                    id="q-2"
+                    type="checkbox"
+                  />
+                  <label for="q-2"
+                    >Les boutons et liens importants ressortent-ils clairement
+                    par rapport au fond&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. POLICE / HIÉRARCHIE -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">2</div>
+            <div>
+              <h2>Police trop petite et manque de hiérarchie</h2>
+              <div class="section-subtitle">
+                Quand tout a la même importance, plus rien ne ressort.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Si tout est de la même taille, l’œil ne sait pas où commencer. Une
+              typographie trop petite ou très serrée fatigue rapidement, en
+              particulier sur mobile ou pour les personnes ayant une vue moins
+              confortable.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>Difficulté à repérer les informations importantes.</li>
+                  <li>
+                    Lecture pénible et abandon de la page au bout de quelques
+                    lignes.
+                  </li>
+                  <li>Sensation de “pavé de texte” décourageant.</li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Texte en petite taille, peu d’espace entre les lignes,
+                      aucun écart visible entre un titre et un paragraphe.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Titre principal plus grand et bien distinct, sous-titres
+                      intermédiaires, texte courant confortable (16–18 px) et
+                      paragraphes courts, aérés.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Police trop petite et manque de hiérarchie"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Police trop petite et manque de hiérarchie"
+                    id="q-3"
+                    type="checkbox"
+                  />
+                  <label for="q-3"
+                    >Les titres ressortent-ils clairement lorsque l’on parcourt
+                    la page rapidement&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Police trop petite et manque de hiérarchie"
+                    id="q-4"
+                    type="checkbox"
+                  />
+                  <label for="q-4"
+                    >Les paragraphes sont-ils suffisamment espacés pour éviter
+                    l’effet “bloc indigestible”&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. MESSAGE PRINCIPAL FLOU -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">3</div>
+            <div>
+              <h2>Message principal flou</h2>
+              <div class="section-subtitle">
+                Quand la page d’accueil ne dit pas clairement qui vous êtes et
+                ce que vous faites.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              En quelques secondes, un visiteur doit comprendre qui vous êtes,
+              ce que vous proposez, à qui vous vous adressez et dans quelle zone
+              vous intervenez. Si ce n’est pas le cas, il part souvent avant
+              même d’avoir commencé à explorer.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>
+                    Perte de visiteurs pourtant pertinents, faute de clarté.
+                  </li>
+                  <li>
+                    Confusion entre votre activité et d’autres métiers proches.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Gros “Bienvenue sur notre site” sans aucune mention de
+                      l’activité, ni du type de clients ou de la ville.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      “Salon de tatouage à Cagnes-sur-Mer – Projets
+                      personnalisés sur rendez-vous” ou “Location de véhicules
+                      en Haute-Corse – Réservation simple, tarifs clairs”.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Message principal flou"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Message principal flou"
+                    id="q-5"
+                    type="checkbox"
+                  />
+                  <label for="q-5"
+                    >En lisant uniquement le premier écran, comprend-on ce que
+                    vous faites&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Message principal flou"
+                    id="q-6"
+                    type="checkbox"
+                  />
+                  <label for="q-6"
+                    >Votre zone géographique est-elle visible dès l’arrivée sur
+                    la page&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. BOUTONS FLOUS -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">4</div>
+            <div>
+              <h2>Boutons et liens d’action flous</h2>
+              <div class="section-subtitle">
+                Quand on ne sait pas ce qui se passe après le clic.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              “En savoir plus”, “Découvrir”, “Cliquez ici” ne disent pas ce qui
+              va se passer. Un bon appel à l’action doit être concret, rassurant
+              et aligné avec ce que vous souhaitez que la personne fasse
+              réellement.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>Hésitation à cliquer, peur de “perdre du temps”.</li>
+                  <li>
+                    Action principale (contact, devis, rendez-vous) peu visible
+                    ou noyée.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Bouton principal “En savoir plus” qui mène vers une page
+                      générique sans action claire derrière.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Boutons explicites&nbsp;: “Demander un devis”, “Prendre
+                      rendez-vous”, “Envoyer un message”, “Voir le portfolio”.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Boutons et liens d’action flous"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Boutons et liens d’action flous"
+                    id="q-7"
+                    type="checkbox"
+                  />
+                  <label for="q-7"
+                    >Votre action principale est-elle évidente au premier coup
+                    d’œil&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Boutons et liens d’action flous"
+                    id="q-8"
+                    type="checkbox"
+                  />
+                  <label for="q-8"
+                    >Chaque bouton indique-t-il clairement ce qui se passe après
+                    le clic&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. STRUCTURE DU TEXTE -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">5</div>
+            <div>
+              <h2>Texte structuré uniquement par la couleur ou le gras</h2>
+              <div class="section-subtitle">
+                Quand les repères visuels ne sont pas assez solides.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              La couleur et le gras ne suffisent pas à structurer un contenu.
+              Sans titres, sous-titres ni listes, la page devient difficile à
+              parcourir, surtout pour les personnes utilisant un lecteur
+              d’écran.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>Obligation de tout lire pour comprendre la page.</li>
+                  <li>Lecture linéaire fatigante, peu adaptée aux écrans.</li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Un seul bloc de texte, avec quelques mots mis en couleur
+                      ou en gras sans vraie organisation.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Titre clair, sous-titres pour les grandes idées, listes à
+                      puces pour les points clés, gras réservé aux mots vraiment
+                      importants.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Texte structuré uniquement par la couleur ou le gras"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Texte structuré uniquement par la couleur ou le gras"
+                    id="q-9"
+                    type="checkbox"
+                  />
+                  <label for="q-9"
+                    >Peut-on comprendre la structure de la page en lisant
+                    uniquement les titres&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Texte structuré uniquement par la couleur ou le gras"
+                    id="q-10"
+                    type="checkbox"
+                  />
+                  <label for="q-10"
+                    >Les listes à puces sont-elles utilisées pour clarifier des
+                    ensembles d’informations&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. IMAGES SANS ALTERNATIF -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">6</div>
+            <div>
+              <h2>Images importantes sans description ni texte alternatif</h2>
+              <div class="section-subtitle">
+                Quand vos réalisations sont visibles mais pas accessibles.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Les images qui montrent votre travail (réalisations, produits,
+              plans, photos de locaux) doivent rester compréhensibles même si
+              elles ne s’affichent pas ou si la personne ne peut pas les voir.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>
+                    Personnes malvoyantes privées d’informations essentielles.
+                  </li>
+                  <li>
+                    Site difficile à comprendre lorsque les images se chargent
+                    mal.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Galerie de photos sans légende, texte alternatif vide ou
+                      générique (“image1.jpg”, “photo-3”).
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Texte alternatif descriptif pour chaque image importante,
+                      et légende courte lorsque c’est utile pour comprendre le
+                      contexte.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Images importantes sans description ni texte alternatif"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Images importantes sans description ni texte alternatif"
+                    id="q-11"
+                    type="checkbox"
+                  />
+                  <label for="q-11"
+                    >Les images qui “vendent” votre travail sont-elles décrites
+                    quelque part&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Images importantes sans description ni texte alternatif"
+                    id="q-12"
+                    type="checkbox"
+                  />
+                  <label for="q-12"
+                    >Le site reste-t-il compréhensible lorsque les images ne se
+                    chargent pas&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. FORMULAIRES CONFUS -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">7</div>
+            <div>
+              <h2>Formulaires confus ou trop lourds</h2>
+              <div class="section-subtitle">
+                Quand prendre contact ressemble à un parcours d’obstacles.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Un formulaire de contact doit être simple, compréhensible et
+              rapide à remplir. Trop de champs, des labels flous ou des messages
+              d’erreur obscurs découragent les visiteurs.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>Abandons fréquents avant même d’envoyer la demande.</li>
+                  <li>Incompréhension sur ce qui est obligatoire ou non.</li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Placeholders qui disparaissent dès la saisie, 8 à 10
+                      champs à remplir, messages d’erreur vagues ou techniques.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Labels visibles au-dessus de chaque champ, 3 à 5 champs
+                      essentiels, messages d’erreur clairs et utiles (“Merci
+                      d’indiquer une adresse mail valide”).
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Formulaires confus ou trop lourds"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Formulaires confus ou trop lourds"
+                    id="q-13"
+                    type="checkbox"
+                  />
+                  <label for="q-13"
+                    >Peut-on remplir le formulaire en une à deux minutes&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Formulaires confus ou trop lourds"
+                    id="q-14"
+                    type="checkbox"
+                  />
+                  <label for="q-14"
+                    >Comprend-on facilement ce qui est attendu dans chaque
+                    champ&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. NAVIGATION LOURDE -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">8</div>
+            <div>
+              <h2>Navigation lourde ou incohérente</h2>
+              <div class="section-subtitle">
+                Quand trouver l’information devient une chasse au trésor.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Un menu trop chargé, des intitulés peu clairs ou des liens
+              essentiels cachés obligent le visiteur à chercher longtemps.
+              Beaucoup abandonnent avant de trouver ce qu’ils cherchaient.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>Impression de site complexe, peu accueillant.</li>
+                  <li>
+                    Services, réalisations ou contact difficiles à localiser.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Menu avec de nombreuses entrées peu explicites, lien
+                      “Contact” uniquement présent en pied de page.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Menu réduit à l’essentiel&nbsp;: Accueil,
+                      Prestations/Services, Réalisations/Portfolio,
+                      éventuellement Tarifs, et un lien Contact / Rendez-vous
+                      bien visible.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Navigation lourde ou incohérente"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Navigation lourde ou incohérente"
+                    id="q-15"
+                    type="checkbox"
+                  />
+                  <label for="q-15"
+                    >En un ou deux clics, peut-on atteindre vos services, votre
+                    portfolio et votre page de contact&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Navigation lourde ou incohérente"
+                    id="q-16"
+                    type="checkbox"
+                  />
+                  <label for="q-16"
+                    >Le menu sur mobile est-il clairement repérable et facile à
+                    utiliser&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. ZONES CLIQUABLES -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">9</div>
+            <div>
+              <h2>Zones cliquables trop petites / peu de repères au clavier</h2>
+              <div class="section-subtitle">
+                Quand cliquer devient un geste de précision.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Des boutons trop petits ou des liens très proches les uns des
+              autres sont difficiles à utiliser sur mobile. Sans repère visuel
+              au clavier, le site devient aussi beaucoup moins accessible pour
+              les personnes qui ne peuvent pas utiliser la souris.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>Clics ratés fréquents, frustration sur mobile.</li>
+                  <li>
+                    Site presque inutilisable pour les personnes naviguant au
+                    clavier.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Liens textes serrés, boutons minuscules, aucun changement
+                      visuel lors de la navigation au clavier.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Boutons de taille confortable, zones cliquables
+                      suffisamment grandes, focus au clavier clairement visible
+                      (contour ou changement de fond).
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Zones cliquables trop petites / peu de repères au clavier"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Zones cliquables trop petites / peu de repères au clavier"
+                    id="q-17"
+                    type="checkbox"
+                  />
+                  <label for="q-17"
+                    >Avez-vous déjà testé votre site uniquement avec la touche Tab
+                    du clavier&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Zones cliquables trop petites / peu de repères au clavier"
+                    id="q-18"
+                    type="checkbox"
+                  />
+                  <label for="q-18"
+                    >Sur mobile, les boutons sont-ils faciles à actionner sans
+                    viser très précisément&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. EFFETS VISUELS -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-index">10</div>
+            <div>
+              <h2>Trop d’effets visuels qui nuisent à la lecture</h2>
+              <div class="section-subtitle">
+                Quand le site bouge plus que le regard du visiteur.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Animations fréquentes, carrousels rapides, vidéos en fond, pop-ups
+              multiples… tous ces éléments peuvent donner une impression de
+              “modernité”, mais rendent la lecture fatigante et perturbent la
+              compréhension.
+            </p>
+            <div class="two-cols">
+              <div>
+                <div class="impact-title">Impact sur vos visiteurs</div>
+                <ul>
+                  <li>
+                    Sensation d’agression visuelle, difficulté à se concentrer.
+                  </li>
+                  <li>
+                    Problèmes accentués pour les personnes sensibles aux
+                    mouvements ou à certains stimuli visuels.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div class="practice-grid">
+                  <div class="practice-card practice-bad">
+                    <div class="practice-label">Mauvaise pratique</div>
+                    <div class="practice-text">
+                      Vidéo en boucle en arrière-plan, animations simultanées,
+                      pop-up de capture qui s’affiche dès l’arrivée sur le site.
+                    </div>
+                  </div>
+                  <div class="practice-card practice-good">
+                    <div class="practice-label">Bonne pratique</div>
+                    <div class="practice-text">
+                      Quelques transitions discrètes, fond stable, possibilité
+                      de mettre en pause les vidéos ou carrousels si nécessaire.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-block">
+              <p><strong>Questions à vous poser&nbsp;:</strong></p>
+              <div
+                aria-label="Questions à cocher — Trop d’effets visuels qui nuisent à la lecture"
+                class="checklist-inline"
+                role="group"
+              >
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Trop d’effets visuels qui nuisent à la lecture"
+                    id="q-19"
+                    type="checkbox"
+                  />
+                  <label for="q-19"
+                    >Vous sentez-vous à l’aise et calme en parcourant votre site,
+                    ou constamment sollicité&nbsp;?</label
+                  >
+                </div>
+                <div class="checklist-item">
+                  <input
+                    class="check-input"
+                    data-section="Trop d’effets visuels qui nuisent à la lecture"
+                    id="q-20"
+                    type="checkbox"
+                  />
+                  <label for="q-20"
+                    >Les animations apportent-elles une information utile, ou
+                    surtout un effet de style&nbsp;?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHECKLIST FINALE -->
+        <section class="section checklist-section">
+          <div class="section-header">
+            <div class="section-index">✓</div>
+            <div>
+              <h2>Checklist finale “Accessibilité &amp; clarté”</h2>
+              <div class="section-subtitle">
+                Un état des lieux rapide pour visualiser vos priorités.
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Cochez les éléments qui sont déjà en place sur votre site. Vous
+              pouvez ensuite vous concentrer sur les points restants, étape par
+              étape.
+            </p>
+
+            <div class="checklist">
+              <div class="checklist-title">Éléments à vérifier</div>
+
+              <!-- ⚠️ Cette checklist finale est visuelle (pas interactive) : tu peux la rendre interactive plus tard si tu veux -->
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Contraste suffisant entre le texte, les boutons et le fond.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Police lisible, tailles distinctes entre titres, sous-titres
+                  et texte courant.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Page d’accueil qui indique clairement qui vous êtes, ce que
+                  vous faites, pour qui et où.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Boutons d’action clairs, alignés avec ce que vous attendez de
+                  vos visiteurs.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Texte structuré avec titres, sous-titres et listes à puces
+                  lorsque nécessaire.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Images importantes accompagnées d’un texte alternatif ou d’une
+                  légende explicite.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Formulaires simples, avec labels clairs et nombre de champs
+                  limité.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Navigation claire avec un menu limité aux sections
+                  essentielles.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Boutons et liens facilement cliquables sur mobile, focus
+                  visible au clavier.
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div aria-hidden="true" class="check-square"></div>
+                <div>
+                  Animations maîtrisées, pas d’effet visuel qui gêne la lecture
+                  ou la compréhension.
+                </div>
+              </div>
+            </div>
+
+            <div class="score-block">
+              <p class="score-level">
+                <span class="score-label">8 à 10 éléments cochés&nbsp;:</span>
+                votre site est déjà bien structuré. Vous pouvez viser des
+                optimisations fines.
+              </p>
+              <p class="score-level">
+                <span class="score-label">5 à 7 éléments cochés&nbsp;:</span>
+                plusieurs ajustements ciblés peuvent améliorer sensiblement
+                l’expérience de vos visiteurs.
+              </p>
+              <p class="score-level">
+                <span class="score-label">0 à 4 éléments cochés&nbsp;:</span>
+                vos visiteurs rencontrent probablement de vraies difficultés.
+                Une refonte guidée peut apporter un gain important.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER / CTA -->
+        <footer class="footer">
+          <div class="cta-block">
+            <div class="cta-title">
+              Aller plus loin avec un diagnostic complet GregDev
+            </div>
+            <p>
+              Si cet auto-diagnostic vous a permis d’identifier plusieurs points
+              à améliorer, c’est déjà une excellente étape. La plupart des sites
+              souffrent des mêmes difficultés ; l’enjeu est de prioriser ce qui
+              aura le plus d’impact pour vos visiteurs.
+            </p>
+            <p>
+              Je peux analyser votre site de manière plus détaillée (structure,
+              contenu, accessibilité, performances) et vous proposer un plan
+              d’action priorisé, adapté à votre activité, votre budget et votre
+              public.
+            </p>
+            <p style="margin-bottom: 6px">
+              Pour demander un diagnostic complet personnalisé&nbsp;:
+            </p>
+            <ul style="margin: 0 0 4px 1.25rem; padding: 0">
+              <li>envoyez-moi l’adresse de votre site&nbsp;;</li>
+              <li>
+                précisez en quelques lignes à qui vous vous adressez en priorité
+                ;
+              </li>
+              <li>
+                indiquez ce que vous aimeriez améliorer en premier (contacts,
+                lisibilité, mobile, etc.).
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p><strong>Coordonnées</strong></p>
+            <div class="contact-line">
+              <span class="contact-item">Gregory Poupaux – GregDev</span>
+              <span class="contact-item">Développeur web front-end freelance</span>
+            </div>
+            <div class="contact-line">
+              <span class="contact-item">
+                Email&nbsp;:
+                <a href="mailto:gregory.poupaux@hotmail.fr"
+                  >gregory.poupaux@hotmail.fr</a
+                >
+              </span>
+              <span class="contact-item">
+                LinkedIn&nbsp;:
+                <a
+                  href="https://www.linkedin.com/in/grégory-poupaux"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  www.linkedin.com/in/grégory-poupaux
+                </a>
+              </span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        function escapeHtml(str) {
+          return String(str)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;");
+        }
+
+        const STORAGE_KEY = "gregdev_auto_diag_accessibilite_v2";
+
+        const scoreText = document.getElementById("scoreText");
+        const scoreLabel = document.getElementById("scoreLabel");
+        const scoreMeta = document.getElementById("scoreMeta");
+        const scoreDot = document.getElementById("scoreDot");
+        const bar = document.getElementById("bar");
+        const progress = document.getElementById("progress");
+        const sectionsBreakdown = document.getElementById("sectionsBreakdown");
+
+        const pageName = document.getElementById("pageName");
+        const auditDate = document.getElementById("auditDate");
+        const notes = document.getElementById("notes");
+
+        const exportBtn = document.getElementById("exportBtn");
+        const copyBtn = document.getElementById("copyBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const printBtn = document.getElementById("printBtn");
+        const mdOut = document.getElementById("mdOut");
+
+        const printSummary = document.getElementById("printSummary");
+
+        function allCheckboxes() {
+          return Array.from(
+            document.querySelectorAll("input.check-input[type=checkbox]")
+          );
+        }
+
+        function toast(msg) {
+          let t = document.getElementById("toast");
+          if (!t) {
+            t = document.createElement("div");
+            t.id = "toast";
+            t.setAttribute("role", "status");
+            t.setAttribute("aria-live", "polite");
+            document.body.appendChild(t);
+          }
+          t.textContent = msg;
+          t.style.opacity = "1";
+          clearTimeout(toast._timer);
+          toast._timer = setTimeout(() => {
+            t.style.opacity = "0";
+          }, 1600);
+        }
+
+        function scoreLevel(pct) {
+          if (pct >= 80)
+            return { label: "Solide", color: "#166534", dot: "#22c55e" };
+          if (pct >= 55)
+            return {
+              label: "Bien (encore 2–3 quick wins)",
+              color: "#92400e",
+              dot: "#f59e0b",
+            };
+          return { label: "À renforcer", color: "#b91c1c", dot: "#ef4444" };
+        }
+
+        function sectionLevel(pct) {
+          if (pct >= 80) return { dot: "#22c55e" };
+          if (pct >= 55) return { dot: "#f59e0b" };
+          return { dot: "#ef4444" };
+        }
+
+        /**
+         * ✅ FIX PRINCIPAL : buildSectionMap manquait (ça cassait export MD + section stats)
+         * Retourne Map<sectionName, checkboxElements[]>
+         */
+        function buildSectionMap() {
+          const map = new Map();
+          const boxes = allCheckboxes();
+          boxes.forEach((cb) => {
+            const sec = cb.getAttribute("data-section") || "Checklist";
+            if (!map.has(sec)) map.set(sec, []);
+            map.get(sec).push(cb);
+          });
+          return map;
+        }
+
+        function computeSectionStats() {
+          const groups = buildSectionMap();
+          const stats = [];
+          for (const [sec, items] of groups.entries()) {
+            const total = items.length;
+            const checked = items.filter((i) => i.checked).length;
+            const pct = total ? Math.round((checked / total) * 100) : 0;
+            const firstId = items[0]?.id;
+            stats.push({ sec, total, checked, pct, firstId });
+          }
+          stats.sort((a, b) => {
+            if (a.sec === "Checklist finale") return 1;
+            if (b.sec === "Checklist finale") return -1;
+            return a.sec.localeCompare(b.sec, "fr");
+          });
+          return stats;
+        }
+
+        function updateSectionScores() {
+          if (!sectionsBreakdown) return;
+          const stats = computeSectionStats();
+          sectionsBreakdown.innerHTML = "";
+
+          stats.forEach((s) => {
+            const li = document.createElement("li");
+
+            const el = document.createElement(s.firstId ? "a" : "span");
+            if (s.firstId) {
+              el.href = "#" + s.firstId;
+              el.style.textDecoration = "none";
+              el.style.color = "inherit";
+            }
+            el.className = "sec-pill";
+            el.setAttribute(
+              "aria-label",
+              `${s.sec} : ${s.pct}% (${s.checked}/${s.total})`
+            );
+
+            const dot = document.createElement("span");
+            dot.className = "mini-dot";
+            dot.style.background = sectionLevel(s.pct).dot;
+
+            const title = document.createElement("span");
+            title.innerHTML = `<strong>${escapeHtml(s.sec)}</strong>`;
+
+            const meta = document.createElement("span");
+            meta.textContent = `${s.pct}% (${s.checked}/${s.total})`;
+
+            el.appendChild(dot);
+            el.appendChild(title);
+            el.appendChild(meta);
+
+            li.appendChild(el);
+            sectionsBreakdown.appendChild(li);
+          });
+        }
+
+        function computeGlobal() {
+          const boxes = allCheckboxes();
+          const total = boxes.length;
+          const checked = boxes.filter((b) => b.checked).length;
+          const pct = total ? Math.round((checked / total) * 100) : 0;
+          return { total, checked, pct };
+        }
+
+        /**
+         * ✅ Résumé imprimable propre (PDF)
+         */
+        function updatePrintSummary() {
+          if (!printSummary) return;
+
+          const g = computeGlobal();
+          const stats = computeSectionStats();
+
+          const pn = (pageName?.value || "").trim();
+          const ad = (auditDate?.value || "").trim();
+          const nt = (notes?.value || "").trim();
+
+          const rows = stats
+            .map(
+              (s) => `
+            <tr>
+              <td>${escapeHtml(s.sec)}</td>
+              <td><strong>${s.pct}%</strong></td>
+              <td>${s.checked}/${s.total}</td>
+            </tr>
+          `
+            )
+            .join("");
+
+          printSummary.innerHTML = `
+            <div class="print-summary">
+              <h2>Résumé — Auto-diagnostic Accessibilité &amp; Clarté</h2>
+
+              <div class="print-meta">
+                <span class="print-pill">Score global : <strong>${g.pct}%</strong> (${g.checked}/${g.total})</span>
+                ${pn ? `<span class="print-pill">Page : <strong>${escapeHtml(pn)}</strong></span>` : ``}
+                ${ad ? `<span class="print-pill">Date : <strong>${escapeHtml(ad)}</strong></span>` : ``}
+              </div>
+
+              <table class="print-table" aria-label="Scores par section">
+                <thead>
+                  <tr><th>Section</th><th>Score</th><th>Cochés</th></tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+
+              ${
+                nt
+                  ? `<div class="print-notes"><strong>Notes :</strong>\n${escapeHtml(
+                      nt
+                    )}</div>`
+                  : ``
+              }
+            </div>
+          `;
+        }
+
+        function updateScore() {
+          const { total, checked, pct } = computeGlobal();
+
+          if (scoreText) scoreText.textContent = pct + "%";
+          if (scoreMeta)
+            scoreMeta.textContent = checked + "/" + total + " éléments cochés";
+
+          const lvl = scoreLevel(pct);
+          if (scoreLabel) {
+            scoreLabel.textContent = lvl.label;
+            scoreLabel.style.color = lvl.color;
+          }
+          if (scoreDot) scoreDot.style.background = lvl.dot;
+
+          if (bar) {
+            bar.style.width = pct + "%";
+            bar.style.background = lvl.dot;
+          }
+
+          if (progress) progress.setAttribute("aria-valuenow", String(pct));
+
+          updateSectionScores();
+          updatePrintSummary();
+        }
+
+        function saveState() {
+          const state = {};
+          allCheckboxes().forEach((cb) => {
+            state[cb.id] = !!cb.checked;
+          });
+          state.__pageName = pageName ? pageName.value : "";
+          state.__auditDate = auditDate ? auditDate.value : "";
+          state.__notes = notes ? notes.value : "";
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function loadState() {
+          try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) {
+              if (auditDate)
+                auditDate.value = new Date().toISOString().slice(0, 10);
+              return;
+            }
+            const state = JSON.parse(raw);
+            allCheckboxes().forEach((cb) => {
+              if (Object.prototype.hasOwnProperty.call(state, cb.id))
+                cb.checked = !!state[cb.id];
+            });
+            if (pageName) pageName.value = state.__pageName || "";
+            if (notes) notes.value = state.__notes || "";
+            if (auditDate)
+              auditDate.value =
+                state.__auditDate || new Date().toISOString().slice(0, 10);
+          } catch (e) {
+            if (auditDate)
+              auditDate.value = new Date().toISOString().slice(0, 10);
+          }
+        }
+
+        function groupBySection() {
+          const map = new Map();
+          allCheckboxes().forEach((cb) => {
+            const sec = cb.getAttribute("data-section") || "Checklist";
+            if (!map.has(sec)) map.set(sec, []);
+            const label =
+              document
+                .querySelector('label[for="' + cb.id + '"]')
+                ?.textContent?.trim() || cb.id;
+            map.get(sec).push({ id: cb.id, label, checked: cb.checked });
+          });
+          return map;
+        }
+
+        function toMarkdown() {
+          const { total, checked, pct } = computeGlobal();
+
+          const lines = [];
+          lines.push(`# Auto-diagnostic “Accessibilité & clarté”`);
+          lines.push("");
+
+          const pn = pageName?.value?.trim();
+          const ad = auditDate?.value;
+          const nt = notes?.value?.trim();
+
+          if (pn) lines.push(`**Page :** ${pn}`);
+          if (ad) lines.push(`**Date :** ${ad}`);
+          lines.push(`**Score :** ${pct}% (${checked}/${total})`);
+
+          lines.push("");
+          lines.push("## Résumé par section");
+          computeSectionStats().forEach((s) => {
+            lines.push(`- **${s.sec}** : ${s.pct}% (${s.checked}/${s.total})`);
+          });
+
+          if (nt) {
+            lines.push("");
+            lines.push(`## Notes`);
+            lines.push(nt);
+          }
+          lines.push("");
+
+          const groups = groupBySection();
+          const keys = Array.from(groups.keys()).sort((a, b) => {
+            if (a === "Checklist finale") return 1;
+            if (b === "Checklist finale") return -1;
+            return a.localeCompare(b, "fr");
+          });
+
+          keys.forEach((sec) => {
+            lines.push(`## ${sec}`);
+            groups.get(sec).forEach((item) => {
+              lines.push(`- [${item.checked ? "x" : " "}] ${item.label}`);
+            });
+            lines.push("");
+          });
+
+          return lines.join("\n");
+        }
+
+        function bind() {
+          allCheckboxes().forEach((cb) => {
+            cb.addEventListener("change", () => {
+              saveState();
+              updateScore();
+            });
+
+            // Espace marche nativement; on ajoute Enter (UX)
+            cb.addEventListener("keydown", (e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                cb.checked = !cb.checked;
+                cb.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+            });
+          });
+
+          [pageName, auditDate, notes].forEach((el) => {
+            if (!el) return;
+            el.addEventListener("input", saveState);
+            el.addEventListener("change", saveState);
+          });
+
+          if (exportBtn) {
+            exportBtn.addEventListener("click", () => {
+              const md = toMarkdown();
+              mdOut.value = md;
+              mdOut.classList.remove("sr-only");
+              mdOut.style.position = "static";
+              mdOut.style.width = "100%";
+              mdOut.style.height = "240px";
+              mdOut.style.marginTop = "10px";
+              mdOut.style.borderRadius = "12px";
+              mdOut.style.padding = "10px";
+              mdOut.style.border = "1px solid rgba(17,24,39,.16)";
+              mdOut.style.background = "white";
+              mdOut.style.color = "#111827";
+              mdOut.focus();
+              mdOut.select();
+            });
+          }
+
+          if (copyBtn) {
+            copyBtn.addEventListener("click", async () => {
+              const md = toMarkdown();
+              try {
+                await navigator.clipboard.writeText(md);
+                toast("Markdown copié ✅");
+              } catch (e) {
+                mdOut.value = md;
+                mdOut.classList.remove("sr-only");
+                mdOut.style.position = "static";
+                mdOut.style.width = "100%";
+                mdOut.style.height = "240px";
+                mdOut.style.marginTop = "10px";
+                mdOut.style.borderRadius = "12px";
+                mdOut.style.padding = "10px";
+                mdOut.style.border = "1px solid rgba(17,24,39,.16)";
+                mdOut.style.background = "white";
+                mdOut.style.color = "#111827";
+                mdOut.focus();
+                mdOut.select();
+                toast("Copie manuelle : Ctrl+C");
+              }
+            });
+          }
+
+          if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+              allCheckboxes().forEach((cb) => (cb.checked = false));
+              if (pageName) pageName.value = "";
+              if (notes) notes.value = "";
+              if (auditDate)
+                auditDate.value = new Date().toISOString().slice(0, 10);
+              saveState();
+              updateScore();
+              toast("Réinitialisé");
+            });
+          }
+
+          if (printBtn) {
+            printBtn.addEventListener("click", () => window.print());
+          }
+
+          // ✅ Important : avant impression, on régénère le résumé (évite "PDF brouillon")
+          window.addEventListener("beforeprint", updatePrintSummary);
+        }
+
+        loadState();
+        bind();
+        updateScore();
+      })();
+    </script>
+  </body>
+</html>
