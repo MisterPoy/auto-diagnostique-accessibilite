@@ -152,6 +152,9 @@
             class="sr-only"
             id="mdOut"
           ></textarea>
+
+
+          <button class="md-close" id="mdCloseBtn" type="button">Masquer le Markdown</button>
         </div>
       </div>
     </div>
@@ -288,7 +291,7 @@
                     <strong>2 questions à cocher</strong>.
                   </li>
                   <li>
-                    Le <strong>score (0/20)</strong> correspond au nombre de
+                    Le <strong>score (<span class="score-inline">0/20</span>)</strong> correspond au nombre de
                     cases cochées sur l’ensemble des 10 sections.
                   </li>
                   <li>
@@ -380,31 +383,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="1"
-                    data-section="Contraste de couleurs insuffisant"
-                    id="q-1"
-                    type="checkbox"
-                  />
-                  <label for="q-1"
-                    >Vos textes restent-ils lisibles sans effort sur un écran
-                    lumineux ou en plein jour&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-1-text">Vos textes restent-ils lisibles sans effort sur un écran
+                    lumineux ou en plein jour&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-1-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="1" data-section="Contraste de couleurs insuffisant" id="q-1-yes" name="q-1" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-1-no" name="q-1" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="2"
-                    data-section="Contraste de couleurs insuffisant"
-                    id="q-2"
-                    type="checkbox"
-                  />
-                  <label for="q-2"
-                    >Les boutons et liens importants ressortent-ils clairement
-                    par rapport au fond&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-2-text">Les boutons et liens importants ressortent-ils clairement
+                    par rapport au fond&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-2-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="2" data-section="Contraste de couleurs insuffisant" id="q-2-yes" name="q-2" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-2-no" name="q-2" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -469,31 +498,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="3"
-                    data-section="Police trop petite et manque de hiérarchie"
-                    id="q-3"
-                    type="checkbox"
-                  />
-                  <label for="q-3"
-                    >Les titres ressortent-ils clairement lorsque l’on parcourt
-                    la page rapidement&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-3-text">Les titres ressortent-ils clairement lorsque l’on parcourt
+                    la page rapidement&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-3-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="3" data-section="Police trop petite et manque de hiérarchie" id="q-3-yes" name="q-3" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-3-no" name="q-3" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="4"
-                    data-section="Police trop petite et manque de hiérarchie"
-                    id="q-4"
-                    type="checkbox"
-                  />
-                  <label for="q-4"
-                    >Les paragraphes sont-ils suffisamment espacés pour éviter
-                    l’effet “bloc indigestible”&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-4-text">Les paragraphes sont-ils suffisamment espacés pour éviter
+                    l’effet “bloc indigestible”&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-4-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="4" data-section="Police trop petite et manque de hiérarchie" id="q-4-yes" name="q-4" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-4-no" name="q-4" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -559,31 +614,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="5"
-                    data-section="Message principal flou"
-                    id="q-5"
-                    type="checkbox"
-                  />
-                  <label for="q-5"
-                    >En lisant uniquement le premier écran, comprend-on ce que
-                    vous faites&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-5-text">En lisant uniquement le premier écran, comprend-on ce que
+                    vous faites&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-5-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="5" data-section="Message principal flou" id="q-5-yes" name="q-5" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-5-no" name="q-5" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="6"
-                    data-section="Message principal flou"
-                    id="q-6"
-                    type="checkbox"
-                  />
-                  <label for="q-6"
-                    >Votre zone géographique est-elle visible dès l’arrivée sur
-                    la page&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-6-text">Votre zone géographique est-elle visible dès l’arrivée sur
+                    la page&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-6-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="6" data-section="Message principal flou" id="q-6-yes" name="q-6" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-6-no" name="q-6" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -646,31 +727,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="7"
-                    data-section="Boutons et liens d’action flous"
-                    id="q-7"
-                    type="checkbox"
-                  />
-                  <label for="q-7"
-                    >Votre action principale est-elle évidente au premier coup
-                    d’œil&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-7-text">Votre action principale est-elle évidente au premier coup
+                    d’œil&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-7-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="7" data-section="Boutons et liens d’action flous" id="q-7-yes" name="q-7" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-7-no" name="q-7" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="8"
-                    data-section="Boutons et liens d’action flous"
-                    id="q-8"
-                    type="checkbox"
-                  />
-                  <label for="q-8"
-                    >Chaque bouton indique-t-il clairement ce qui se passe après
-                    le clic&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-8-text">Chaque bouton indique-t-il clairement ce qui se passe après
+                    le clic&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-8-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="8" data-section="Boutons et liens d’action flous" id="q-8-yes" name="q-8" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-8-no" name="q-8" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -731,31 +838,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="9"
-                    data-section="Texte structuré uniquement par la couleur ou le gras"
-                    id="q-9"
-                    type="checkbox"
-                  />
-                  <label for="q-9"
-                    >Peut-on comprendre la structure de la page en lisant
-                    uniquement les titres&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-9-text">Peut-on comprendre la structure de la page en lisant
+                    uniquement les titres&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-9-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="9" data-section="Texte structuré uniquement par la couleur ou le gras" id="q-9-yes" name="q-9" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-9-no" name="q-9" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="10"
-                    data-section="Texte structuré uniquement par la couleur ou le gras"
-                    id="q-10"
-                    type="checkbox"
-                  />
-                  <label for="q-10"
-                    >Les listes à puces sont-elles utilisées pour clarifier des
-                    ensembles d’informations&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-10-text">Les listes à puces sont-elles utilisées pour clarifier des
+                    ensembles d’informations&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-10-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="10" data-section="Texte structuré uniquement par la couleur ou le gras" id="q-10-yes" name="q-10" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-10-no" name="q-10" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -820,31 +953,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="11"
-                    data-section="Images importantes sans description ni texte alternatif"
-                    id="q-11"
-                    type="checkbox"
-                  />
-                  <label for="q-11"
-                    >Les images qui “vendent” votre travail sont-elles décrites
-                    quelque part&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-11-text">Les images qui “vendent” votre travail sont-elles décrites
+                    quelque part&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-11-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="11" data-section="Images importantes sans description ni texte alternatif" id="q-11-yes" name="q-11" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-11-no" name="q-11" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="12"
-                    data-section="Images importantes sans description ni texte alternatif"
-                    id="q-12"
-                    type="checkbox"
-                  />
-                  <label for="q-12"
-                    >Le site reste-t-il compréhensible lorsque les images ne se
-                    chargent pas&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-12-text">Le site reste-t-il compréhensible lorsque les images ne se
+                    chargent pas&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-12-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="12" data-section="Images importantes sans description ni texte alternatif" id="q-12-yes" name="q-12" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-12-no" name="q-12" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -904,31 +1063,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="13"
-                    data-section="Formulaires confus ou trop lourds"
-                    id="q-13"
-                    type="checkbox"
-                  />
-                  <label for="q-13"
-                    >Peut-on remplir le formulaire en une à deux
-                    minutes&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-13-text">Peut-on remplir le formulaire en une à deux
+                    minutes&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-13-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="13" data-section="Formulaires confus ou trop lourds" id="q-13-yes" name="q-13" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-13-no" name="q-13" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="14"
-                    data-section="Formulaires confus ou trop lourds"
-                    id="q-14"
-                    type="checkbox"
-                  />
-                  <label for="q-14"
-                    >Comprend-on facilement ce qui est attendu dans chaque
-                    champ&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-14-text">Comprend-on facilement ce qui est attendu dans chaque
+                    champ&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-14-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="14" data-section="Formulaires confus ou trop lourds" id="q-14-yes" name="q-14" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-14-no" name="q-14" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -991,31 +1176,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="15"
-                    data-section="Navigation lourde ou incohérente"
-                    id="q-15"
-                    type="checkbox"
-                  />
-                  <label for="q-15"
-                    >En un ou deux clics, peut-on atteindre vos services, votre
-                    portfolio et votre page de contact&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-15-text">En un ou deux clics, peut-on atteindre vos services, votre
+                    portfolio et votre page de contact&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-15-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="15" data-section="Navigation lourde ou incohérente" id="q-15-yes" name="q-15" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-15-no" name="q-15" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="16"
-                    data-section="Navigation lourde ou incohérente"
-                    id="q-16"
-                    type="checkbox"
-                  />
-                  <label for="q-16"
-                    >Le menu sur mobile est-il clairement repérable et facile à
-                    utiliser&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-16-text">Le menu sur mobile est-il clairement repérable et facile à
+                    utiliser&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-16-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="16" data-section="Navigation lourde ou incohérente" id="q-16-yes" name="q-16" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-16-no" name="q-16" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -1079,31 +1290,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="17"
-                    data-section="Zones cliquables trop petites / peu de repères au clavier"
-                    id="q-17"
-                    type="checkbox"
-                  />
-                  <label for="q-17"
-                    >Avez-vous déjà testé votre site uniquement avec la touche
-                    Tab du clavier&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-17-text">Avez-vous déjà testé votre site uniquement avec la touche
+                    Tab du clavier&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-17-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="17" data-section="Zones cliquables trop petites / peu de repères au clavier" id="q-17-yes" name="q-17" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-17-no" name="q-17" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="18"
-                    data-section="Zones cliquables trop petites / peu de repères au clavier"
-                    id="q-18"
-                    type="checkbox"
-                  />
-                  <label for="q-18"
-                    >Sur mobile, les boutons sont-ils faciles à actionner sans
-                    viser très précisément&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-18-text">Sur mobile, les boutons sont-ils faciles à actionner sans
+                    viser très précisément&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-18-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="18" data-section="Zones cliquables trop petites / peu de repères au clavier" id="q-18-yes" name="q-18" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-18-no" name="q-18" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -1168,31 +1405,57 @@
                 class="checklist-inline"
                 role="group"
               >
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="19"
-                    data-section="Trop d’effets visuels qui nuisent à la lecture"
-                    id="q-19"
-                    type="checkbox"
-                  />
-                  <label for="q-19"
-                    >Vous sentez-vous à l’aise et calme en parcourant votre
-                    site, ou constamment sollicité&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-19-text">Vous sentez-vous à l’aise et calme en parcourant votre
+                    site, ou constamment sollicité&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-19-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="19" data-section="Trop d’effets visuels qui nuisent à la lecture" id="q-19-yes" name="q-19" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-19-no" name="q-19" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
-                <div class="checklist-item">
-                  <input
-                    class="check-input"
-                    data-idx="20"
-                    data-section="Trop d’effets visuels qui nuisent à la lecture"
-                    id="q-20"
-                    type="checkbox"
-                  />
-                  <label for="q-20"
-                    >Les animations apportent-elles une information utile, ou
-                    surtout un effet de style&nbsp;?</label
-                  >
+                <div class="checklist-item question-item">
+
+                  <span class="question-text" id="q-20-text">Les animations apportent-elles une information utile, ou
+                    surtout un effet de style&nbsp;?</span>
+
+                  <div class="answer-group" role="radiogroup" aria-labelledby="q-20-text">
+
+                    <label class="answer-option">
+
+                      <input class="check-input" data-answer="yes" data-idx="20" data-section="Trop d’effets visuels qui nuisent à la lecture" id="q-20-yes" name="q-20" type="radio" />
+
+                      <span>Oui</span>
+
+                    </label>
+
+                    <label class="answer-option">
+
+                      <input class="check-input check-input-no" data-answer="no" id="q-20-no" name="q-20" type="radio" />
+
+                      <span>Non</span>
+
+                    </label>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -1212,7 +1475,7 @@
           </div>
           <div class="section-body">
             <p>
-              <strong>Le score (0/20)</strong> correspond uniquement aux
+              <strong>Le score (<span class="score-inline">0/20</span>)</strong> correspond uniquement aux
               <strong>20 questions cochées</strong> dans les sections 1 à 10. La
               grille ci-dessous est un <strong>récap visuel</strong> (non
               cliquable) de ces 20 cases.

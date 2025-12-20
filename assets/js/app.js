@@ -5,8 +5,7 @@
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;");
   }
-  const STORAGE_KEY = "gregdev_auto_diag_accessibilite_v2";
-  const QUESTION_TOTAL = 20;
+  const STORAGE_KEY = "gregdev_auto_diag_accessibilite_v3";
   const scoreText = document.getElementById("scoreText");
   const scoreLabel = document.getElementById("scoreLabel");
   const scoreMeta = document.getElementById("scoreMeta");
@@ -22,12 +21,21 @@
   const resetBtn = document.getElementById("resetBtn");
   const printBtn = document.getElementById("printBtn");
   const mdOut = document.getElementById("mdOut");
+  const mdCloseBtn = document.getElementById("mdCloseBtn");
   const printSummary = document.getElementById("printSummary");
   // ✅ PATCH : uniquement les 20 questions (celles qui ont data-idx)
-  function questionCheckboxes() {
+  function questionInputs() {
     return Array.from(
       document.querySelectorAll(
-        "input.check-input[type=checkbox][data-idx]"
+        "input.check-input[type=\"radio\"][name][data-answer]"
+      )
+    );
+  }
+  // ? PATCH : uniquement les 20 questions (oui)
+  function questionYesInputs() {
+    return Array.from(
+      document.querySelectorAll(
+        "input.check-input[type=\"radio\"][data-answer=\"yes\"][data-idx]"
       )
     );
   }
@@ -65,7 +73,7 @@
   }
   function buildSectionMap() {
     const map = new Map();
-    const boxes = questionCheckboxes();
+    const boxes = questionYesInputs();
     boxes.forEach((cb) => {
       const sec = cb.getAttribute("data-section") || "Checklist";
       if (!map.has(sec)) map.set(sec, []);
@@ -118,8 +126,8 @@
     });
   }
   function computeGlobal() {
-    const boxes = questionCheckboxes();
-    const total = QUESTION_TOTAL;
+    const boxes = questionYesInputs();
+    const total = boxes.length;
     const checked = boxes.filter((b) => b.checked).length;
     const pct = total ? Math.round((checked / total) * 100) : 0;
     return { total, checked, pct };
@@ -128,11 +136,11 @@
   function syncFinalSquares() {
     const squares = Array.from(document.querySelectorAll(".final-sq"));
     if (squares.length === 0) return;
-    questionCheckboxes().forEach((cb) => {
-      const idx = cb.getAttribute("data-idx");
+    questionYesInputs().forEach((input) => {
+      const idx = input.getAttribute("data-idx");
       const sq = document.querySelector(`.final-sq[data-idx="${idx}"]`);
       if (!sq) return;
-      sq.classList.toggle("is-on", cb.checked);
+      sq.classList.toggle("is-on", input.checked);
     });
   }
   function updatePrintSummary() {
@@ -194,6 +202,9 @@
   function updateScore() {
     const { total, checked, pct } = computeGlobal();
     if (scoreText) scoreText.textContent = `${checked}/${total}`;
+    document.querySelectorAll(".score-inline").forEach((el) => {
+      el.textContent = `${checked}/${total}`;
+    });
     if (scoreMeta)
       scoreMeta.textContent = `${checked}/${total} cases cochées — ${pct}%`;
     const lvl = scoreLevel(pct);
@@ -213,8 +224,14 @@
   }
   function saveState() {
     const state = {};
-    questionCheckboxes().forEach((cb) => {
-      state[cb.id] = !!cb.checked;
+    const groups = new Map();
+    questionInputs().forEach((input) => {
+      if (!groups.has(input.name)) groups.set(input.name, []);
+      groups.get(input.name).push(input);
+    });
+    groups.forEach((inputs, name) => {
+      const selected = inputs.find((input) => input.checked);
+      state[name] = selected ? selected.getAttribute("data-answer") : "";
     });
     state.__pageName = pageName ? pageName.value : "";
     state.__auditDate = auditDate ? auditDate.value : "";
@@ -230,9 +247,9 @@
         return;
       }
       const state = JSON.parse(raw);
-      questionCheckboxes().forEach((cb) => {
-        if (Object.prototype.hasOwnProperty.call(state, cb.id))
-          cb.checked = !!state[cb.id];
+      questionInputs().forEach((input) => {
+        const saved = state[input.name];
+        input.checked = saved === input.getAttribute("data-answer");
       });
       if (pageName) pageName.value = state.__pageName || "";
       if (notes) notes.value = state.__notes || "";
@@ -246,20 +263,22 @@
   }
   function groupBySection() {
     const map = new Map();
-    questionCheckboxes().forEach((cb) => {
+    questionYesInputs().forEach((cb) => {
       const sec = cb.getAttribute("data-section") || "Checklist";
       if (!map.has(sec)) map.set(sec, []);
       const label =
-        document
-          .querySelector('label[for="' + cb.id + '"]')
-          ?.textContent?.trim() || cb.id;
+        cb
+          .closest(".question-item")
+          ?.querySelector(".question-text")
+          ?.textContent?.replace(/\s+/g, " ")
+          ?.trim() || cb.id;
       map.get(sec).push({ id: cb.id, label, checked: cb.checked });
     });
     return map;
   }
   function toTrelloMarkdown() {
-    const boxes = questionCheckboxes();
-    const total = QUESTION_TOTAL;
+    const boxes = questionYesInputs();
+    const total = boxes.length;
     const checked = boxes.filter((b) => b.checked).length;
     const pct = total ? Math.round((checked / total) * 100) : 0;
     const pn = pageName?.value?.trim() || "Page non précisée";
@@ -312,17 +331,10 @@
     return lines.join("\n");
   }
   function bind() {
-    questionCheckboxes().forEach((cb) => {
-      cb.addEventListener("change", () => {
+    questionInputs().forEach((input) => {
+      input.addEventListener("change", () => {
         saveState();
         updateScore();
-      });
-      cb.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          cb.checked = !cb.checked;
-          cb.dispatchEvent(new Event("change", { bubbles: true }));
-        }
       });
     });
     [pageName, auditDate, notes].forEach((el) => {
@@ -336,22 +348,28 @@
         updateScore();
       });
     });
+    function showMarkdown(md) {
+      if (!mdOut) return;
+      mdOut.value = md;
+      mdOut.classList.remove("sr-only");
+      mdOut.classList.add("md-output");
+      if (mdCloseBtn) mdCloseBtn.classList.add("is-visible");
+      mdOut.focus();
+      mdOut.select();
+    }
+    function hideMarkdown() {
+      if (!mdOut) return;
+      mdOut.classList.remove("md-output");
+      mdOut.classList.add("sr-only");
+      if (mdCloseBtn) mdCloseBtn.classList.remove("is-visible");
+    }
+    if (mdCloseBtn) {
+      mdCloseBtn.addEventListener("click", hideMarkdown);
+    }
     if (exportBtn) {
       exportBtn.addEventListener("click", () => {
         const md = toTrelloMarkdown();
-        mdOut.value = md;
-        mdOut.classList.remove("sr-only");
-        mdOut.style.position = "static";
-        mdOut.style.width = "100%";
-        mdOut.style.height = "240px";
-        mdOut.style.marginTop = "10px";
-        mdOut.style.borderRadius = "12px";
-        mdOut.style.padding = "10px";
-        mdOut.style.border = "1px solid rgba(17,24,39,.16)";
-        mdOut.style.background = "white";
-        mdOut.style.color = "#111827";
-        mdOut.focus();
-        mdOut.select();
+        showMarkdown(md);
       });
     }
     if (copyBtn) {
@@ -359,35 +377,24 @@
         const md = toTrelloMarkdown();
         try {
           await navigator.clipboard.writeText(md);
-          toast("Markdown copié ✅");
+          toast("Markdown copie.");
         } catch (e) {
-          mdOut.value = md;
-          mdOut.classList.remove("sr-only");
-          mdOut.style.position = "static";
-          mdOut.style.width = "100%";
-          mdOut.style.height = "240px";
-          mdOut.style.marginTop = "10px";
-          mdOut.style.borderRadius = "12px";
-          mdOut.style.padding = "10px";
-          mdOut.style.border = "1px solid rgba(17,24,39,.16)";
-          mdOut.style.background = "white";
-          mdOut.style.color = "#111827";
-          mdOut.focus();
-          mdOut.select();
+          showMarkdown(md);
           toast("Copie manuelle : Ctrl+C");
         }
       });
     }
     if (resetBtn) {
       resetBtn.addEventListener("click", () => {
-        questionCheckboxes().forEach((cb) => (cb.checked = false));
+        questionInputs().forEach((input) => (input.checked = false));
         if (pageName) pageName.value = "";
         if (notes) notes.value = "";
         if (auditDate)
           auditDate.value = new Date().toISOString().slice(0, 10);
         saveState();
         updateScore();
-        toast("Réinitialisé");
+        hideMarkdown();
+        toast("Reinitialise");
       });
     }
     if (printBtn) {
@@ -403,7 +410,7 @@
     }
     syncExportMenu();
     window.addEventListener("resize", syncExportMenu);
-    // Ferme le menu après une action (mobile)
+    // Ferme le menu apres une action (mobile)
     ["exportBtn", "copyBtn", "resetBtn", "printBtn"].forEach((id) => {
       const btn = document.getElementById(id);
       if (!btn) return;

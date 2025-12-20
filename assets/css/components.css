@@ -161,23 +161,57 @@
         color: #111827;
         font-size: 14px;
       }
-      .checklist-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: 8px 0;
-      }
-      .check-input {
-        width: 28px;
-        height: 28px;
-        margin-top: 2px;
-        accent-color: #4f46e5;
-        flex-shrink: 0;
-        cursor: pointer;
-      }
-      .checklist-item label {
-        cursor: pointer;
-      }
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+.check-input {
+  width: 28px;
+  height: 28px;
+  margin-top: 2px;
+  accent-color: #4f46e5;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.checklist-item label {
+  cursor: pointer;
+}
+.checklist-item.question-item {
+  align-items: flex-start;
+  gap: 12px;
+}
+.question-text {
+  flex: 1;
+  font-size: 0.95rem;
+}
+.answer-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.answer-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.question-item .check-input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+@media (max-width: 700px) {
+  .checklist-item.question-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .answer-group {
+    justify-content: flex-start;
+  }
+}
       .sr-only {
         position: absolute;
         width: 1px;
@@ -189,10 +223,10 @@
         white-space: nowrap;
         border: 0;
       }
-      #toast {
-        position: fixed;
-        left: 50%;
-        bottom: 18px;
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
         transform: translateX(-50%);
         padding: 10px 12px;
         border-radius: 999px;
@@ -200,9 +234,37 @@
         color: white;
         border: 1px solid rgba(255, 255, 255, 0.18);
         font-weight: 800;
-        font-size: 14px;
-        z-index: 10001;
-      }
+  font-size: 14px;
+  z-index: 10001;
+}
+.md-output {
+  width: 100%;
+  height: 240px;
+  margin-top: 10px;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid rgba(17, 24, 39, 0.16);
+  background: white;
+  color: #111827;
+  font-size: 13px;
+  font-family: inherit;
+}
+.md-close {
+  display: none;
+  margin-top: 6px;
+  appearance: none;
+  border: 1px solid rgba(17, 24, 39, 0.16);
+  background: rgba(17, 24, 39, 0.04);
+  color: #111827;
+  padding: 7px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 13px;
+}
+.md-close.is-visible {
+  display: inline-flex;
+}
       /* ===== Export menu (responsive) ===== */
       .panel-export {
         justify-self: end;
@@ -351,14 +413,14 @@
         font-weight: 800;
         font-size: 13px; /* ↓ un poil */
       }
-      .cover-top-badge {
-        font-size: 1.05rem;
-        font-weight: 900;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--accent-strong);
-        text-align: right;
-      }
+.cover-top-badge {
+  font-size: clamp(1.4rem, 1.2vw + 1.2rem, 2rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  text-align: right;
+}
       /* "Plus" ressemble à un bouton (summary stylé) */
       .panel-more {
         position: relative;
