@@ -1,0 +1,122 @@
+:root {
+  --page-bg: #e5e7eb;
+  --paper-bg: #ffffff;
+  --ink: #111827;
+  --muted: #4b5563;
+  --accent: #4f46e5;
+  --accent-soft: #eef2ff;
+  --accent-strong: #3730a3;
+  --good-bg: #ecfdf3;
+  --good-border: #22c55e;
+  --good-text: #166534;
+  --bad-bg: #fef2f2;
+  --bad-border: #f97373;
+  --bad-text: #b91c1c;
+  --card-bg: #f9fafb;
+  --divider: #e5e7eb;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  color: var(--ink);
+  background: radial-gradient(
+    circle at top left,
+    #e0ecff 0,
+    var(--page-bg) 40%,
+    #d1d5db 100%
+  );
+  line-height: 1.6;
+}
+/* GENERIC PAGE BLOCK */
+.page {
+  max-width: 980px;
+  margin: 32px auto;
+  background: var(--paper-bg);
+  border-radius: 20px;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.25),
+    0 0 0 1px rgba(148, 163, 184, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+.page-inner {
+  padding: 32px 44px 40px;
+}
+.page--content::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: linear-gradient(180deg, #6366f1, #4f46e5, #7c3aed);
+}
+@media (max-width: 900px) {
+  .page {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .page-inner {
+    padding: 24px 20px 32px;
+  }
+  .page--content::before {
+    display: none;
+  }
+}
+/* LOGOS */
+.logo-main {
+  max-width: 160px;
+  height: auto;
+}
+.logo-small {
+  max-height: 32px;
+  width: auto;
+}
+/* TITRES GÉNÉRAUX */
+h1,
+h2,
+h3 {
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: var(--ink);
+}
+h1 {
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.35rem;
+}
+h3 {
+  font-size: 1.05rem;
+}
+p {
+  margin: 0 0 10px;
+  font-size: 0.98rem;
+}
+ul {
+  margin: 0 0 10px 1.25rem;
+  padding: 0;
+}
+li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+strong {
+  font-weight: 600;
+}
+a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}

@@ -7,7 +7,7 @@ Voir en ligne: https://misterpoy.github.io/auto-diagnostique-accessibilite/
 ## Points forts
 - Checklist interactive, claire et rapide a remplir
 - Sections organisees par themes
-- Fichier unique, aucun build ou dependance
+- Projet statique, aucun build ou dependance
 
 ## Utilisation locale
 1. Telecharger ou cloner le repo
@@ -15,6 +15,8 @@ Voir en ligne: https://misterpoy.github.io/auto-diagnostique-accessibilite/
 
 ## Contenu du repo
 - `index.html` : la page principale
+- `assets/css/` : styles separes par blocs
+- `assets/js/app.js` : logique interactive
 - `GregDevLogo.png` : logo utilise dans l'entete
 
 ## Publication
